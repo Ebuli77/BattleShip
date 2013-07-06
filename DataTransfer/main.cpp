@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 }
 */
 #include <QGuiApplication>
-#include <QQuickView>
+#include <QtQuick/QQuickView>
 
 int main(int argc, char** argv)
 {
@@ -20,7 +20,8 @@ int main(int argc, char** argv)
     QQuickView view;
     view.resize(800, 480);
     view.setResizeMode(QQuickView::SizeRootObjectToView);
-    view.setSource(QUrl("qrc:///foo.qml"));
+    //view.setSource(QUrl("resources/qml/main.qml"));
+    view.setSource(QUrl("qrc:/qml/main.qml"));
     view.show();
     return app.exec();
 }

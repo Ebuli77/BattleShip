@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui network widgets
+QT += quick qml
 
 QMAKE_LFLAGS += -static-libgcc -lpthread
 

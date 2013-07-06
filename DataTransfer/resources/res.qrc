@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/qml">
+    <qresource prefix="/">
         <file>qml/Blue_Water.png</file>
         <file>qml/Button.qml</file>
         <file>qml/GameGrid.qml</file>
