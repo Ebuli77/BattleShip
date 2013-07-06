@@ -27,3 +27,6 @@ HEADERS  += mainwindow.h \
     status.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    resources/res.qrc
