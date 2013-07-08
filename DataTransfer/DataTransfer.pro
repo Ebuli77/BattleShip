@@ -31,3 +31,9 @@ FORMS    += mainwindow.ui
 
 RESOURCES += \
     resources/res.qrc
+
+OTHER_FILES += \
+    resources/qml/Ship.qml \
+    resources/qml/main.qml \
+    resources/qml/GameGrid.qml \
+    resources/qml/Button.qml
