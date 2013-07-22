@@ -33,14 +33,21 @@ void Server::onNewConnection()
     QTcpSocket* socket = this->nextPendingConnection();
     qDebug() << "onNewConnection..";
     // TEST
-    socket->write(QString("Heps sanoo serveri").toLatin1());
+    // socket->write(QString("Heps sanoo serveri").toLatin1());
     Status::Protocol protocol;
     protocol.type = Status::Shooting;
     protocol.shot.ammo = Status::Normal;
     protocol.shot.coordx = 2;
     protocol.shot.coordx = 4;
 
-    //socket->write() << protocol;
+    QByteArray byteArray;
+
+    QDataStream stream(&byteArray, QIODevice::WriteOnly);
+    stream.setVersion(QDataStream::Qt_4_5);
+
+    stream << protocol;
+
+    socket->write() << stream;
 
     socket->flush();
     socket->bytesToWrite();
