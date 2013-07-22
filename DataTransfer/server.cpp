@@ -1,4 +1,5 @@
 #include "server.h"
+#include <QDataStream>
 //#include "socketconnection.h"
 
 Server::Server(QObject *parent) : QTcpServer(parent)
@@ -44,10 +45,13 @@ void Server::onNewConnection()
 
     QDataStream stream(&byteArray, QIODevice::WriteOnly);
     stream.setVersion(QDataStream::Qt_4_5);
+    quint16 datasize = 0; //we dont have the  size yet
+    stream << datasize << quint32(protocol.type) << quint32(protocol.shot.ammo) << quint32(protocol.shot.coordx) << quint32(protocol.shot.coordx);
 
-    stream << protocol;
+    stream.device()->seek(0); //Go to the point of the datasize (the '0' we set before)
+    stream << quint16(byteArray.size() - sizeof(quint16));
 
-    socket->write() << stream;
+    socket->write(byteArray);
 
     socket->flush();
     socket->bytesToWrite();
