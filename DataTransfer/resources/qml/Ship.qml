@@ -19,7 +19,8 @@ Item {
     property int targetY: 0
 
     // triggers placing animation
-    property bool placingRunning: false
+    property bool triggerPlacing: false
+    property bool runPlacing: false
 
     // if horizontalPlacement == false then this is 90
     property int shipAngle: 0
@@ -30,15 +31,23 @@ Item {
     }
 
     MouseArea {
+        id: mouseArea
         anchors.fill: parent
         drag.target: parent
         drag.axis: Drag.XAndYAxis
         drag.minimumX: 0
 
+        onDoubleClicked: {
+
+            horizontalPlacement = !horizontalPlacement;
+            shipAngle = horizontalPlacement?0:90;
+
+        }
+
     }
 
     NumberAnimation on x {
-        running: currentShipId.placingRunning
+        running: currentShipId.runPlacing
         //from: ship4.x;
         to: currentShipId.targetX * currentShipId.height + offsetX
         duration: 2500
@@ -46,11 +55,15 @@ Item {
     }
 
     NumberAnimation on y {
-        running: currentShipId.placingRunning//placeShipsRunning
+        running: currentShipId.runPlacing//placeShipsRunning
         //from: ship4.x;
         to: currentShipId.targetY * currentShipId.height + offsetY
         duration: 2500
         easing.type: Easing.OutExpo
+    }
+
+    Behavior on shipAngle {
+        NumberAnimation { duration: 500}
     }
 
     transform : Rotation {
@@ -66,18 +79,30 @@ Item {
             PropertyChanges { target: currentShipId; shipAngle: 0}
         },
         State {
-            name: "PLACED"; when: placingRunning;
+            name: "PLACED"
             PropertyChanges { target: currentShipId; shipAngle: horizontalPlacement?0:90}
         }
     ]
+
 
     transitions: [
         Transition {
             from: "*"
             to: "PLACED"
             NumberAnimation { properties: "shipAngle"; easing.type: Easing.OutExpo; duration: 2500 }
+        },
+        Transition {
+            from: "*"
+            to: "UNPLACED"
+            NumberAnimation { properties: "shipAngle"; easing.type: Easing.OutExpo; duration: 2500 }
         }
     ]
+
+    onTriggerPlacingChanged: {
+
+        runPlacing = triggerPlacing;
+        state = "PLACED";
+    }
 }
 
 

@@ -2,8 +2,8 @@ import QtQuick 2.0
 
 Rectangle {
     id: gameBoardId
-    width: 600
-    height: 400
+    width: 700
+    height: 250
 
     z: -5
     color: "lightgray"
@@ -39,7 +39,7 @@ Rectangle {
 
                 targetX: 0
                 targetY: 0
-                placingRunning: shipRectId.placeShipsRunning
+                triggerPlacing: shipRectId.placeShipsRunning
 
                 horizontalPlacement: false
             }
@@ -53,7 +53,7 @@ Rectangle {
 
                 targetX: 2
                 targetY: 2
-                placingRunning: shipRectId.placeShipsRunning
+                triggerPlacing: shipRectId.placeShipsRunning
             }
             Ship {
                 id : ship3
@@ -65,7 +65,7 @@ Rectangle {
 
                 targetX: 4
                 targetY: 4
-                placingRunning: shipRectId.placeShipsRunning
+                triggerPlacing: shipRectId.placeShipsRunning
             }
             Ship {
                 id : ship4
@@ -77,7 +77,7 @@ Rectangle {
 
                 targetX: 6
                 targetY: 6
-                placingRunning: shipRectId.placeShipsRunning
+                triggerPlacing: shipRectId.placeShipsRunning
 
             }
             Ship {
@@ -90,7 +90,7 @@ Rectangle {
 
                 targetX: 8
                 targetY: 8
-                placingRunning: shipRectId.placeShipsRunning
+                triggerPlacing: shipRectId.placeShipsRunning
                 horizontalPlacement: false
             }
 
@@ -122,7 +122,7 @@ Rectangle {
         id: gameRectId
         z: 0
         color: parent.color
-        height: parent.height
+        height: gameBoardId.shipHeight * 10
         width: gameBoardId.shipHeight * 10
         anchors.top: parent.top
         //anchors.left: shipRectId.right
@@ -140,15 +140,22 @@ Rectangle {
         }
     }
 
+    Rectangle {
+        color: parent.color
+        id: spacerTwoId
+        width: 20
+        anchors.left:gameRectId.right
+    }
+
     //shooting range!!
     Rectangle {
         id: shootRectId
         z: 7
         color: parent.color
-        height: parent.height
+        height: gameBoardId.shipHeight * 10
         width: gameBoardId.shipHeight * 10
-        anchors.top: gameRectId.bottom
-        anchors.left: shipRectId.right
+        //y: 20
+        anchors.left: spacerTwoId.right
 
         GameGrid {
             gridHeight: gameBoardId.shipHeight * 10
@@ -164,16 +171,16 @@ Rectangle {
 
     Rectangle {
         color: parent.color
-        id: spacerTwoId
+        id: spacerThreeId
         width: 20
-        anchors.left:gameRectId.right
+        anchors.left:shootRectId.right
     }
 
     Rectangle {
         id: connectRectId
         color: parent.color
         anchors.top: parent.top
-        anchors.left: spacerTwoId.right
+        anchors.left: spacerThreeId.right
         height: parent.height
         width: parent.width/4
 
