@@ -23,6 +23,6 @@ bool SocketConnection::sendMessage(QString &msg)
         return false;
 
     QByteArray message = msg.toUtf8();
-    QByteArray data = "Tomi " + QByteArray::number(msg.size()) + ' ' + message;
+    QByteArray data = QByteArray::number(msg.size()) + ' ' + message;
     return write(data) == data.size();
 }

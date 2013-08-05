@@ -20,11 +20,14 @@ public:
 
 signals:
     void gotMsg(QString msg);
+    void protocolDataReady(Status::Protocol &protocol);
 
 
 private slots:
     //void newConn(SocketConnection *conn);
     //void connectionClosed();
+    void receiveData();
+    void sendData(Status::Protocol &protocol);
 
 
 private:

@@ -19,10 +19,14 @@ public:
     
 signals:
     //void gotNewConn(SocketConnection *);
+    void protocolDataReady(Status::Protocol &protocol);
+
 
 public slots:
    // void newConnRequest(qintptr socketdescription);
     void onNewConnection();
+    void sendData(Status::Protocol &protocol);
+    void receiveData();
 
 private:
     QString port;

@@ -31,31 +31,89 @@ Server::Server(QString port, QObject *parent) : QTcpServer(parent)
 
 void Server::onNewConnection()
 {
-    QTcpSocket* socket = this->nextPendingConnection();
-    qDebug() << "onNewConnection..";
-    // TEST
-    // socket->write(QString("Heps sanoo serveri").toLatin1());
-    Status::Protocol protocol;
-    protocol.type = Status::Shooting;
-    protocol.shot.ammo = Status::Normal;
-    protocol.shot.coordx = 2;
-    protocol.shot.coordx = 4;
+    socket = new QTcpSocket();
 
+    socket = this->nextPendingConnection();
+    qDebug() << "onNewConnection..";
+    receiveData();
+//    // TEST
+//    // socket->write(QString("Heps sanoo serveri").toLatin1());
+
+//    Status::Protocol protocol;
+//    /// Test Data, use the actual data instead
+//        protocol.type = Status::Shooting;
+//        protocol.shot.ammo = Status::Normal;
+//        protocol.shot.coordx = 5;
+//        protocol.shot.coordy = 6;
+
+//    /// Test Data end
+
+
+//    QByteArray byteArray;
+
+//    QDataStream stream(&byteArray, QIODevice::WriteOnly);
+//    stream.setVersion(QDataStream::Qt_5_0);
+//    quint16 datasize = 0; //we dont have the  size yet
+//    stream << datasize << quint16(protocol.type) << quint16(protocol.shot.ammo) << quint16(protocol.shot.coordx) << quint16(protocol.shot.coordy);
+
+//    stream.device()->seek(0); //Go to the point of the datasize (the '0' we set before)
+//    stream << quint16(byteArray.size() - sizeof(quint16));
+
+//    qDebug() << "Bytes to write from server: " <<  socket->bytesToWrite();
+//    socket->write(byteArray);
+
+//    socket->flush();
+//    socket->bytesToWrite();
+//    socket->waitForConnected(2000);
+//    socket->close();
+    // TEST END
+}
+
+void Server::sendData(Status::Protocol &protocol)
+{
     QByteArray byteArray;
 
     QDataStream stream(&byteArray, QIODevice::WriteOnly);
-    stream.setVersion(QDataStream::Qt_4_5);
+    stream.setVersion(QDataStream::Qt_5_0);
     quint16 datasize = 0; //we dont have the  size yet
-    stream << datasize << quint32(protocol.type) << quint32(protocol.shot.ammo) << quint32(protocol.shot.coordx) << quint32(protocol.shot.coordx);
+    stream << datasize << quint16(protocol.type) << quint16(protocol.shot.ammo) << quint16(protocol.shot.coordx) << quint16(protocol.shot.coordy);
 
     stream.device()->seek(0); //Go to the point of the datasize (the '0' we set before)
     stream << quint16(byteArray.size() - sizeof(quint16));
 
+    qDebug() << "Bytes to write from server: " <<  socket->bytesToWrite();
     socket->write(byteArray);
 
     socket->flush();
     socket->bytesToWrite();
     socket->waitForConnected(2000);
     socket->close();
-    // TEST END
+}
+
+void Server::receiveData()
+{
+    QDataStream in(socket->readAll());
+
+    quint16 datasize;
+    in >> datasize;
+    Status::Protocol protocol;
+
+    quint16 protocoltype;
+    quint16 protocolammo;
+    quint16 protocolcoordx;
+    quint16 protocolcoordy;
+    in >> protocoltype;
+    in >> protocolammo;
+    in >> protocolcoordx;
+    in >> protocolcoordy;
+
+    qDebug() << "Server:\n";
+    qDebug() << "datasize: " << datasize;
+    qDebug() << "protocol.type: " << protocoltype;
+    qDebug() << "protocol.shot.ammo: " << protocolammo;
+    qDebug() << "protocol.shot.coordx: " << protocolcoordx;
+    qDebug() << "protocol.shot.coordy: " << protocolcoordy;
+
+    emit protocolDataReady(protocol);
+
 }
