@@ -19,13 +19,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     client.cpp \
     server.cpp \
-    socketconnection.cpp
+    socketconnection.cpp \
+    Ship.cpp \
+    Fleet.cpp
 
 HEADERS  += mainwindow.h \
     client.h \
     server.h \
     socketconnection.h \
-    status.h
+    status.h \
+    Ship.h \
+    Fleet.h
 
 FORMS    += mainwindow.ui
 
