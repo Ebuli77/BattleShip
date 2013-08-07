@@ -96,6 +96,8 @@ Rectangle {
 
         } //Grid ships
     }
+
+    /*
     Button {
         anchors.bottom: shipRectId.bottom
         z: 1
@@ -110,6 +112,7 @@ Rectangle {
             console.log("jou")
         }
     }
+    */
 
     Rectangle {
         color: parent.color
