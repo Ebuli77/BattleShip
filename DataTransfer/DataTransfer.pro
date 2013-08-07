@@ -40,4 +40,6 @@ OTHER_FILES += \
     resources/qml/Ship.qml \
     resources/qml/main.qml \
     resources/qml/GameGrid.qml \
-    resources/qml/Button.qml
+    resources/qml/Button.qml \
+    resources/qml/Startup.qml
+
