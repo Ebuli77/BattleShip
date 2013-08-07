@@ -41,7 +41,7 @@ Rectangle {
                 targetY: 0
                 triggerPlacing: shipRectId.placeShipsRunning
 
-                horizontalPlacement: false
+                //horizontalPlacement: false
             }
             Ship {
                 id : ship2
@@ -91,7 +91,7 @@ Rectangle {
                 targetX: 8
                 targetY: 8
                 triggerPlacing: shipRectId.placeShipsRunning
-                horizontalPlacement: false
+                //horizontalPlacement: false
             }
 
         } //Grid ships

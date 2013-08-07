@@ -25,6 +25,12 @@ Item {
     // if horizontalPlacement == false then this is 90
     property int shipAngle: 0
 
+
+    // Position handler variables
+    property int x_looper : 0;
+    property int y_looper : 0;
+
+
     Image {
         width: parent.width; height: parent.height
         source: "row.png"
@@ -44,7 +50,55 @@ Item {
 
         }
 
+        onReleased: {
+            console.log("Current coords are : x = " + currentShipId.x + ", y = " + currentShipId.y);
+            console.log("offset x = " + offsetX + ", y = " + offsetY);
+            //x_looper = 0; y_looper = 0;
+            startGridSnap();
+
+            currentShipId.x = currentShipId.targetX * currentShipId.height + offsetX;
+            currentShipId.y = currentShipId.targetY * currentShipId.height + offsetY;
+
+        }
     }
+
+    /*
+    onOffsetXChanged: {
+        currentShipId.x = currentShipId.targetX * currentShipId.height + offsetX;
+    }
+
+    onOffsetYChanged: {
+        currentShipId.y = currentShipId.targetY * currentShipId.height + offsetY;
+    }
+    */
+
+    // Places Ship to grid
+    function startGridSnap() {
+        console.log("startGridSnap()");
+        for (x_looper = offsetX; x_looper < (currentShipId.height * 10 + offsetX); x_looper += currentShipId.height)
+        {
+            for (y_looper = offsetY; y_looper < (currentShipId.height * 10 + offsetY); y_looper += currentShipId.height)
+            {
+                if ( (currentShipId.x > x_looper) && (currentShipId.x < (x_looper + currentShipId.height))
+                        && (currentShipId.y > y_looper) && (currentShipId.y < (y_looper + currentShipId.height)) )
+                {
+                    console.log("Ship is inside limits x: " + x_looper + " - " + (x_looper + currentShipId.height) +
+                                " and y: " + y_looper + " - " + (y_looper + currentShipId.height));
+
+                    console.log("coordinates are grid x: " + ((x_looper - offsetX)/currentShipId.height) );
+                    console.log("coordinates are grid y: " + ((y_looper - offsetY)/currentShipId.height) );
+
+                    currentShipId.targetX = (x_looper - offsetX)/currentShipId.height;
+                    currentShipId.targetY = (y_looper - offsetY)/currentShipId.height;
+
+                    //console.log("targetX:" + targetX + ", targetY:" + targetY);
+                    return;
+                }
+            }
+        }
+        console.log("Ship is off the course!!!!");
+    }
+
 
     NumberAnimation on x {
         running: currentShipId.runPlacing
@@ -62,8 +116,16 @@ Item {
         easing.type: Easing.OutExpo
     }
 
+
     Behavior on shipAngle {
-        NumberAnimation { duration: 500}
+        NumberAnimation { duration: 200; easing.type: Easing.OutExpo}
+    }
+
+    Behavior on x {
+        NumberAnimation { duration: 200; easing.type: Easing.OutExpo}
+    }
+    Behavior on y {
+        NumberAnimation { duration: 200; easing.type: Easing.OutExpo}
     }
 
     transform : Rotation {
@@ -103,6 +165,8 @@ Item {
         runPlacing = triggerPlacing;
         state = "PLACED";
     }
+
+
 }
 
 
