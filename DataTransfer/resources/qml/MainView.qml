@@ -314,6 +314,7 @@ Rectangle {
             spacing: 5
 
             Rectangle {
+                visible: startedAsServer? false : true;
                 width: connectRectId.width
                 height: 20
                 TextInput {
