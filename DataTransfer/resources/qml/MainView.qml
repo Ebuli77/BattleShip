@@ -66,8 +66,8 @@ Rectangle {
                     onClicked:
                     {
                         console.log("Server clicked" ),
-                        startupView.visible = false,
-                        startedAsServer = true
+                                startupView.visible = false,
+                                startedAsServer = true
                     }
                 }
             }
@@ -92,8 +92,8 @@ Rectangle {
                     //onClicked handles valid mouse button clicks
                     onClicked: {
                         console.log("Client clicked" ),
-                        startupView.visible = false,
-                        startedAsClient = true
+                                startupView.visible = false,
+                                startedAsClient = true
                     }
                 }
             }
@@ -316,16 +316,29 @@ Rectangle {
             Rectangle {
                 width: connectRectId.width
                 height: 20
-                Text {
+                TextInput {
+                    id: ipaddresstext
                     text: "Ip address:"
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked: {ipaddresstext.text = "", parent.focus = true}
+                    }
                 }
+
             }
 
             Rectangle {
                 width: connectRectId.width
                 height: 20
-                Text {
+                TextInput {
+                    id: porttext
                     text: "Port number:"
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked: {porttext.text = "", parent.focus = true}
+                    }
                 }
             }
 
@@ -333,7 +346,7 @@ Rectangle {
                 text: "Connect"
                 width: connectRectId.width
                 onClicked: {
-                    console.log("This is to Tomi's Connection manager!")
+                    console.log("This is to Connection manager!")
                     //gameBoardId.qmlSignal("Hou")
                 }
             }
