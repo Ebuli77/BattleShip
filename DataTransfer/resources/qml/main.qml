@@ -10,6 +10,8 @@ Rectangle {
     property int shipHeight : (gameBoardId.height + 20)/(2*10)//20
     property int shipWidth : shipHeight * 4
 
+    //signal qmlSignal(string msg)
+    signal shipMovedSignal(int shipId, int x_coord, int y_coord)
 
     //Row {
     //    opacity: 1
@@ -31,6 +33,7 @@ Rectangle {
 
             Ship {
                 id : ship1
+                shipid: 0
                 width : parent.shipWidth
                 height : parent.shipHeight
 
@@ -41,10 +44,12 @@ Rectangle {
                 targetY: 0
                 triggerPlacing: shipRectId.placeShipsRunning
 
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
                 //horizontalPlacement: false
             }
             Ship {
                 id : ship2
+                shipid: 1
                 width : parent.shipWidth*3/4
                 height : parent.shipHeight
 
@@ -54,9 +59,12 @@ Rectangle {
                 targetX: 2
                 targetY: 2
                 triggerPlacing: shipRectId.placeShipsRunning
+
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
             }
             Ship {
                 id : ship3
+                shipid: 2
                 width : parent.shipWidth/2
                 height : parent.shipHeight
 
@@ -66,9 +74,12 @@ Rectangle {
                 targetX: 4
                 targetY: 4
                 triggerPlacing: shipRectId.placeShipsRunning
+
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
             }
             Ship {
                 id : ship4
+                shipid: 3
                 width : parent.shipWidth/2
                 height : parent.shipHeight
 
@@ -79,9 +90,11 @@ Rectangle {
                 targetY: 6
                 triggerPlacing: shipRectId.placeShipsRunning
 
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
             }
             Ship {
                 id : ship5
+                shipid: 4
                 width : parent.shipWidth/4
                 height : parent.shipHeight
 
@@ -91,6 +104,8 @@ Rectangle {
                 targetX: 8
                 targetY: 8
                 triggerPlacing: shipRectId.placeShipsRunning
+
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
                 //horizontalPlacement: false
             }
 
@@ -211,6 +226,7 @@ Rectangle {
                 width: connectRectId.width
                 onClicked: {
                     console.log("This is to Tomi's Connection manager!")
+                    //gameBoardId.qmlSignal("Hou")
                 }
             }
 

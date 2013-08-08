@@ -10,6 +10,8 @@
 
 using namespace std;
 
+
+//Ship::Ship(QObject *parent) : QObject(parent), _size(0), _state(Ship::E_MISSED)
 Ship::Ship() : _size(0), _state(Ship::E_MISSED)
 {
 	coords._x_coord = 0; coords._y_coord = 0; coords._x_length = 0; coords._y_length = 0;
@@ -40,6 +42,7 @@ Ship::Ship(int x_coord, int y_coord, int x_length, int y_length) :
 	coords._x_coord = x_coord; coords._y_coord = y_coord;
 	setShip(x_length, y_length);
 }
+
 
 Ship::~Ship() {
 	// TODO Auto-generated destructor stub

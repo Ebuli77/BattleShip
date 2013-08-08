@@ -49,10 +49,10 @@ protected:
 	void setShootArray();
 
 public:
-	Ship();
+    Ship();
 	Ship(int x_length, int y_length);
 	Ship(int x_coord, int y_coord, int x_length, int y_length);
-	virtual ~Ship();
+    virtual ~Ship();
 
 	// set ship position
 	bool setCoord(int x_coord, int y_coord);

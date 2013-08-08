@@ -13,15 +13,28 @@ int main(int argc, char *argv[])
 */
 #include <QGuiApplication>
 #include <QtQuick/QQuickView>
+#include <QQuickItem>
+
+
+
+#include "qmlaccess.h"
 
 int main(int argc, char** argv)
 {
     QGuiApplication app(argc, argv);
     QQuickView view;
+
     view.resize(800, 480);
     view.setResizeMode(QQuickView::SizeRootObjectToView);
     //view.setSource(QUrl("resources/qml/main.qml"));
     view.setSource(QUrl("qrc:/qml/main.qml"));
+
+    //QObject *item = dynamic_cast<QObject *>(view.rootObject());
+    QObject *item = view.rootObject();
+
+    QMLAccess myTarget;
+    QObject::connect(item, SIGNAL(shipMovedSignal(int,int,int)),&myTarget, SLOT(shipMovement(int,int,int)) );
+
     view.show();
     return app.exec();
 }

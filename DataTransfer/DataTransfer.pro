@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     server.cpp \
     socketconnection.cpp \
     Ship.cpp \
-    Fleet.cpp
+    Fleet.cpp \
+    qmlaccess.cpp
 
 HEADERS  += mainwindow.h \
     client.h \
@@ -29,7 +30,8 @@ HEADERS  += mainwindow.h \
     socketconnection.h \
     status.h \
     Ship.h \
-    Fleet.h
+    Fleet.h \
+    qmlaccess.h
 
 FORMS    += mainwindow.ui
 

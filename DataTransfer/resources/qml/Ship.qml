@@ -2,12 +2,13 @@ import QtQuick 2.0
 
 Item {
     id: currentShipId
-    //signal clicked(color shipColor)
+     //signal clicked(color shipColor)
     width: 200
     height: 50
 
     state: "UNPLACED"
 
+    property int shipid: 0
     property bool horizontalPlacement: true
 
     //these are for setting origin in parent
@@ -27,9 +28,11 @@ Item {
 
 
     // Position handler variables
-    property int x_looper : 0;
-    property int y_looper : 0;
+    property int x_looper : 0
+    property int y_looper : 0
 
+    // Signal to game engine
+    signal shipMoveSignal()
 
     Image {
         width: parent.width; height: parent.height
@@ -51,26 +54,19 @@ Item {
         }
 
         onReleased: {
+            /*
             console.log("Current coords are : x = " + currentShipId.x + ", y = " + currentShipId.y);
             console.log("offset x = " + offsetX + ", y = " + offsetY);
-            //x_looper = 0; y_looper = 0;
+            */
             startGridSnap();
 
             currentShipId.x = currentShipId.targetX * currentShipId.height + offsetX;
             currentShipId.y = currentShipId.targetY * currentShipId.height + offsetY;
 
+            shipMoveSignal();
+
         }
     }
-
-    /*
-    onOffsetXChanged: {
-        currentShipId.x = currentShipId.targetX * currentShipId.height + offsetX;
-    }
-
-    onOffsetYChanged: {
-        currentShipId.y = currentShipId.targetY * currentShipId.height + offsetY;
-    }
-    */
 
     // Places Ship to grid
     function startGridSnap() {
@@ -85,13 +81,13 @@ Item {
                     console.log("Ship is inside limits x: " + x_looper + " - " + (x_looper + currentShipId.height) +
                                 " and y: " + y_looper + " - " + (y_looper + currentShipId.height));
 
+                    /*
                     console.log("coordinates are grid x: " + ((x_looper - offsetX)/currentShipId.height) );
                     console.log("coordinates are grid y: " + ((y_looper - offsetY)/currentShipId.height) );
-
+                    */
                     currentShipId.targetX = (x_looper - offsetX)/currentShipId.height;
                     currentShipId.targetY = (y_looper - offsetY)/currentShipId.height;
 
-                    //console.log("targetX:" + targetX + ", targetY:" + targetY);
                     return;
                 }
             }

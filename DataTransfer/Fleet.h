@@ -10,8 +10,10 @@
 #ifndef FLEET_H_
 #define FLEET_H_
 
+
 #include <vector>
 #include "Ship.h"
+
 
 using namespace std;
 
@@ -19,7 +21,11 @@ const int X_MAX = 10;
 const int Y_MAX = 10;
 
 class Fleet {
+
 private:
+
+
+
 	vector<Ship *> *_p_fleet;
 	int _x_max;
 	int _y_max;
@@ -28,9 +34,16 @@ private:
 
 public:
 
-	Fleet();
-	Fleet(int x, int y);
-	virtual ~Fleet();
+    /*
+    Q_INVOKABLE void cppMethod(const QString &msg) {
+             qDebug() << "Called the C++ method with" << msg;
+         }
+*/
+    //Fleet(QObject *parent = 0);
+    Fleet();
+
+    Fleet(int x, int y);
+    virtual ~Fleet();
 
 	int setSeaArea(int x, int y); 	//< set fleet's sea area
 
