@@ -3,10 +3,10 @@
         <file>qml/Blue_Water.png</file>
         <file>qml/Button.qml</file>
         <file>qml/GameGrid.qml</file>
-        <file>qml/main.qml</file>
         <file>qml/row.png</file>
         <file>qml/sea.png</file>
         <file>qml/Ship.qml</file>
         <file>qml/Startup.qml</file>
+        <file>qml/MainView.qml</file>
     </qresource>
 </RCC>
