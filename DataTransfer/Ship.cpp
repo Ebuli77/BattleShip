@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <QDebug>
 #include "Ship.h"
 
 using namespace std;
@@ -76,7 +77,7 @@ Ship::hitstatus Ship::shootCoord(int x, int y, bool into_status, Ship *p_ship)
 		if (!into_status)
 			return Ship::E_HIT;
 
-		cout << "   hit => _ship_array[" << y << " - " << coords._y_coord << "][" << x << " - " << coords._x_coord << "]" << endl;
+        qDebug() << "   hit => _ship_array[" << y << " - " << coords._y_coord << "][" << x << " - " << coords._x_coord << "]" << endl;
 
 		_ship_array[y - coords._y_coord][x - coords._x_coord] = 0; ///< mark as dead part
 
@@ -86,7 +87,7 @@ Ship::hitstatus Ship::shootCoord(int x, int y, bool into_status, Ship *p_ship)
 		if (!(--_size))
 		{
 			_state = Ship::E_SANK;
-			cout << "   sank => _ship_array[" << y << " - " << coords._y_coord << "][" << x << " - " << coords._x_coord << "]" << endl;
+            qDebug() << "   sank => _ship_array[" << y << " - " << coords._y_coord << "][" << x << " - " << coords._x_coord << "]" << endl;
 		}
 
 		return _state;
@@ -124,7 +125,7 @@ bool Ship::setShip(int x_length, int y_length)
 	coords._x_length = x_length;
 	coords._y_length = y_length;
 
-	cout << "Ship location [x = " << coords._x_coord <<"] [y = " << coords._y_coord << "]" << endl;
+    qDebug() << "Ship location [x = " << coords._x_coord <<"] [y = " << coords._y_coord << "]" << endl;
 
 	setShootArray();
 
@@ -144,7 +145,7 @@ void Ship::setShootArray()
 		{
 			_ship_array[y][x] = 1;
 
-			//cout <<" _ship_array[" << y << "][" << x << "] = 1" << endl;
+            //qDebug() <<" _ship_array[" << y << "][" << x << "] = 1" << endl;
 		}
 	}
 }

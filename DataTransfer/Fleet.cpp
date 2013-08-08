@@ -7,6 +7,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <QDebug>
 #include "Fleet.h"
 #include "Ship.h"
 
@@ -60,7 +61,7 @@ int Fleet::shuffleFleetAtArea()
 
 	for (unsigned int i = 0; i < _p_fleet->size(); i++)
 	{
-		cout << "Placing Ship #" << i << endl;
+        qDebug() << "Placing Ship #" << i << endl;
 
 		_p_fleet->at(i)->getShip(x_length,y_length);
 		testShip->setShip(x_length,y_length);
@@ -78,7 +79,7 @@ int Fleet::shuffleFleetAtArea()
 			// try setting ship to sea area
 			if (setShipToArea(testShip))
 			{
-				cout << "Setting ship #" << i << " x_length = " << x_length << " y_length = " << y_length << " to position [x = " << x_rand << "] [y = " << y_rand << "]" <<endl;
+                qDebug() << "Setting ship #" << i << " x_length = " << x_length << " y_length = " << y_length << " to position [x = " << x_rand << "] [y = " << y_rand << "]" <<endl;
 				_p_fleet->at(i)->setCoord(x_rand, y_rand);
 				break;
 			}
@@ -139,11 +140,11 @@ bool Fleet::testShipToSeaArea(Ship *p_ship)
 	{
 		for (int x = x_coord; x < (x_coord + x_size); x++)
 		{
-			//cout << " **** x = " << x <<", y = " << y << endl;
+            //qDebug() << " **** x = " << x <<", y = " << y << endl;
 			// is there empty space at map
 			if ( shootCoords(x,y,false,p_ship) )
 			{
-				cout << "!!!!!" << endl;
+                qDebug() << "!!!!!" << endl;
 				return false;
 			}
 
@@ -205,7 +206,7 @@ int Fleet::setSeaArea(int x, int y)
 	_x_max = x;
 	_y_max = y;
 
-	cout << __FUNCTION__ << endl;
+    qDebug() << __FUNCTION__ << endl;
 	for (unsigned int i = 0; i < _p_fleet->size(); i++)
 	{
 		//_p_fleet->at(i)->getCoord(x_coord,y_coord);
@@ -213,7 +214,7 @@ int Fleet::setSeaArea(int x, int y)
 
 		if (!setShipToArea(_p_fleet->at(i)))
 		{
-			cout << "  Ship #" << i << " didn't fit to new sea area!" << endl;
+            qDebug() << "  Ship #" << i << " didn't fit to new sea area!" << endl;
 		}
 	}
 	return 0;
@@ -302,8 +303,8 @@ Ship::hitstatus Fleet::shootCoords(int x, int y, bool into_status, Ship *p_ship)
 {
 	Ship::hitstatus status = Ship::E_MISSED;
 
-	cout << "  Shooting: **** x = " << x <<", y = " << y << endl;
-	//cout << "  Fleet shooting coords [x = " << x <<"][y = " << y << "]" << endl;
+    qDebug() << "  Shooting: **** x = " << x <<", y = " << y << endl;
+    //qDebug() << "  Fleet shooting coords [x = " << x <<"][y = " << y << "]" << endl;
 	for (unsigned int i = 0; i < _p_fleet->size(); i++)
 	{
 		//testing
