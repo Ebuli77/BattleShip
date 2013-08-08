@@ -142,7 +142,7 @@ Rectangle {
                 triggerPlacing: shipRectId.placeShipsRunning
 
                 onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
-                //horizontalPlacement: false
+                horizontalPlacement: true
             }
             Ship {
                 id : ship1
@@ -160,6 +160,7 @@ Rectangle {
                 triggerPlacing: shipRectId.placeShipsRunning
 
                 onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
+                horizontalPlacement: true
             }
             Ship {
                 id : ship2
@@ -177,6 +178,7 @@ Rectangle {
                 triggerPlacing: shipRectId.placeShipsRunning
 
                 onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
+                horizontalPlacement: true
             }
             Ship {
                 id : ship3
@@ -194,6 +196,7 @@ Rectangle {
                 triggerPlacing: shipRectId.placeShipsRunning
 
                 onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
+                horizontalPlacement: true
             }
             Ship {
                 id : ship4
@@ -211,7 +214,7 @@ Rectangle {
                 triggerPlacing: shipRectId.placeShipsRunning
 
                 onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
-                //horizontalPlacement: false
+                horizontalPlacement: true
             }
 
         } //Grid ships

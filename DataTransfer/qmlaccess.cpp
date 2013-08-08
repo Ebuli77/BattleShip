@@ -5,9 +5,9 @@
 QMLAccess::QMLAccess(QObject *parent) :
     QObject(parent), pRootQml(0)
 {
-    //pFleet = new Fleet();
+    pFleet = new Fleet();
 
-    //Ship *shipArray = new Ship
+    Ship *shipArray[] = { new Ship(0,0,4,1), new Ship(0,2,3,1), new Ship(0,4,3,1) };
 }
 
 void QMLAccess::setQmlRoot(QObject *pObject)
