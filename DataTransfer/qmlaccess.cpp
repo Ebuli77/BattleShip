@@ -15,6 +15,16 @@ void QMLAccess::setQmlRoot(QObject *pObject)
     pRootQml = pObject;
 }
 
+void QMLAccess::startClient(QString, QString)
+{
+    qDebug() << "Start the client!";
+}
+
+void QMLAccess::startServer(QString)
+{
+    qDebug() << "Start the server!";
+}
+
 void QMLAccess::shipMovement(int shipId, int x_coord, int y_coord)
 {
     qDebug() << "Ship id #" <<shipId << " moved to coords: x = " << x_coord << ", y = " << y_coord;

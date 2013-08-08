@@ -29,6 +29,8 @@ public:
     
 public slots:
     void shipMovement(int shipId, int x_coord, int y_coord);
+    void startClient(QString ip, QString port);
+    void startServer(QString port);
 signals:
 
     

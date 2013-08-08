@@ -105,6 +105,8 @@ Rectangle {
 
     //signal qmlSignal(string msg)
     signal shipMovedSignal(int shipId, int x_coord, int y_coord)
+    signal startClientSignal(string ip, string port)
+    signal startServerSignal(string port)
 
     //Row {
     //    opacity: 1
@@ -349,6 +351,7 @@ Rectangle {
                 onClicked: {
                     console.log("This is to Connection manager!")
                     //gameBoardId.qmlSignal("Hou")
+                    startedAsServer? gameBoardId.startServerSignal(porttext) : gameBoardId.startClientSignal (ipaddresstext, porttext);
                 }
             }
 

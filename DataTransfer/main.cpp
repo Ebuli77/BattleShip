@@ -36,6 +36,9 @@ int main(int argc, char** argv)
 
     myTarget.setQmlRoot(item);
     QObject::connect(item, SIGNAL(shipMovedSignal(int,int,int)),&myTarget, SLOT(shipMovement(int,int,int)) );
+    QObject::connect(item, SIGNAL(startClientSignal(QString, QString)),&myTarget, SLOT(startClient(QString, QString)) );
+    QObject::connect(item, SIGNAL(startServerSignal(QString)),&myTarget, SLOT(startServer(QString)) );
+
 
     view.show();
     return app.exec();
