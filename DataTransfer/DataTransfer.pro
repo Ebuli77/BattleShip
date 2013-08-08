@@ -11,7 +11,7 @@ QMAKE_LFLAGS += -static-libgcc -lpthread
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = DataTransfer
+TARGET = BattleShip
 TEMPLATE = app
 
 
@@ -38,8 +38,8 @@ RESOURCES += \
 
 OTHER_FILES += \
     resources/qml/Ship.qml \
-    resources/qml/main.qml \
     resources/qml/GameGrid.qml \
     resources/qml/Button.qml \
-    resources/qml/Startup.qml
+    resources/qml/Startup.qml \
+    resources/qml/MainView.qml
 

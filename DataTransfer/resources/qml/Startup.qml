@@ -1,16 +1,18 @@
 import QtQuick 2.0
 
 Rectangle {
+
+    id: startupView
     width: 700
     height: 250
     //color: "darkgrey"
 
     gradient: Gradient {
-             GradientStop { position: 0.0; color: "#8C8F8C" }
-             GradientStop { position: 0.17; color: "#6A6D6A" }
-             GradientStop { position: 0.98;color: "#3F3F3F" }
-             GradientStop { position: 1.0; color: "#0e1B20" }
-         }
+        GradientStop { position: 0.0; color: "#8C8F8C" }
+        GradientStop { position: 0.17; color: "#6A6D6A" }
+        GradientStop { position: 0.98;color: "#3F3F3F" }
+        GradientStop { position: 1.0; color: "#0e1B20" }
+    }
 
     Text{
         anchors.top: parent.top
@@ -44,7 +46,13 @@ Rectangle {
                 onExited:  parent.border.color = "white"
                 anchors.fill: parent //anchor all sides of the mouse area to the rectangle's anchors
                 //onClicked handles valid mouse button clicks
-                onClicked: console.log("Server clicked" )
+                onClicked:
+                {
+                    console.log("Server clicked" ),
+                            startupView.visible = false,
+                            gameboard.visible
+                            gameboard.visible = true
+                }
             }
         }
 
@@ -66,7 +74,11 @@ Rectangle {
                 onExited:  parent.border.color = "white"
                 anchors.fill: parent //anchor all sides of the mouse area to the rectangle's anchors
                 //onClicked handles valid mouse button clicks
-                onClicked: console.log("Client clicked" )
+                onClicked: {
+                    console.log("Client clicked" ),
+                            startupView.visible = false,
+                            gameboard.visible = true
+                }
             }
         }
     }
