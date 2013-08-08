@@ -68,6 +68,24 @@ Item {
         }
     }
 
+    function setCoords(x_coord, y_coord, horizontal)
+    {
+        console.log("C++ set coords x = " + x_coord + ", y = " + y_coord + ", horizontal = " + horizontal);
+    }
+
+    /*
+    // testing
+    onTargetXChanged: {
+        currentShipId.x = currentShipId.targetX * currentShipId.height + offsetX;
+        currentShipId.y = currentShipId.targetY * currentShipId.height + offsetY;
+    }
+
+    // testing
+    onTargetYChanged: {
+        currentShipId.x = currentShipId.targetX * currentShipId.height + offsetX;
+        currentShipId.y = currentShipId.targetY * currentShipId.height + offsetY;
+    }
+    */
     // Places Ship to grid
     function startGridSnap() {
         console.log("startGridSnap()");

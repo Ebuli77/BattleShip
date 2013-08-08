@@ -33,6 +33,8 @@ int main(int argc, char** argv)
     QObject *item = view.rootObject();
 
     QMLAccess myTarget;
+
+    myTarget.setQmlRoot(item);
     QObject::connect(item, SIGNAL(shipMovedSignal(int,int,int)),&myTarget, SLOT(shipMovement(int,int,int)) );
 
     view.show();

@@ -19,14 +19,16 @@ class QMLAccess : public QObject
 private:
     Fleet *pFleet;
 
+    QObject *pRootQml;
+
 public:
     explicit QMLAccess(QObject *parent = 0);
 
+    void setQmlRoot(QObject *pObject);
+
     
 public slots:
-    void shipMovement(int shipId, int x_coord, int y_coord) {
-        qDebug() << "Ship id #" <<shipId << " moved to coords: x = " << x_coord << ", y = " << y_coord;
-         }
+    void shipMovement(int shipId, int x_coord, int y_coord);
 signals:
 
     

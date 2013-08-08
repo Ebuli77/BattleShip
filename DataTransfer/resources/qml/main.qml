@@ -17,6 +17,7 @@ Rectangle {
     //    opacity: 1
     Rectangle {
         id: shipRectId
+        objectName: "shipRectId"
         color: parent.color
         height: gameBoardId.height
         width: gameBoardId.shipWidth
@@ -26,14 +27,17 @@ Rectangle {
         property bool placeShipsRunning: false
         Column {
             id : shipContainer
+            objectName: "shipContainer"
             spacing: 5
             //anchors.left: gameBoardId.left
             property int shipWidth: gameBoardId.shipWidth
             property int shipHeight: gameBoardId.shipHeight
 
             Ship {
-                id : ship1
+                id : ship0
                 shipid: 0
+                objectName: "ship0"
+
                 width : parent.shipWidth
                 height : parent.shipHeight
 
@@ -48,8 +52,10 @@ Rectangle {
                 //horizontalPlacement: false
             }
             Ship {
-                id : ship2
+                id : ship1
                 shipid: 1
+                objectName: "ship" + shipid
+
                 width : parent.shipWidth*3/4
                 height : parent.shipHeight
 
@@ -63,8 +69,10 @@ Rectangle {
                 onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
             }
             Ship {
-                id : ship3
+                id : ship2
                 shipid: 2
+                objectName: "ship" + shipid
+
                 width : parent.shipWidth/2
                 height : parent.shipHeight
 
@@ -78,8 +86,10 @@ Rectangle {
                 onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
             }
             Ship {
-                id : ship4
+                id : ship3
                 shipid: 3
+                objectName: "ship" + shipid
+
                 width : parent.shipWidth/2
                 height : parent.shipHeight
 
@@ -93,8 +103,10 @@ Rectangle {
                 onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
             }
             Ship {
-                id : ship5
+                id : ship4
                 shipid: 4
+                objectName: "ship" + shipid
+
                 width : parent.shipWidth/4
                 height : parent.shipHeight
 
