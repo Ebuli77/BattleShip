@@ -1,8 +1,9 @@
 import QtQuick 2.0
+
 Rectangle {
     id: gameBoardId
-    width: 900
-    height: 480
+    width: 700
+    height: 250
 
     z: -5
     color: "lightgray"
@@ -101,10 +102,15 @@ Rectangle {
 
     /////////////////
 
+
+    //signal qmlSignal(string msg)
+    signal shipMovedSignal(int shipId, int x_coord, int y_coord)
+
     //Row {
     //    opacity: 1
     Rectangle {
         id: shipRectId
+        objectName: "shipRectId"
         color: parent.color
         height: gameBoardId.height
         width: gameBoardId.shipWidth
@@ -114,13 +120,17 @@ Rectangle {
         property bool placeShipsRunning: false
         Column {
             id : shipContainer
+            objectName: "shipContainer"
             spacing: 5
             //anchors.left: gameBoardId.left
             property int shipWidth: gameBoardId.shipWidth
             property int shipHeight: gameBoardId.shipHeight
 
             Ship {
-                id : ship1
+                id : ship0
+                shipid: 0
+                objectName: "ship0"
+
                 width : parent.shipWidth
                 height : parent.shipHeight
 
@@ -131,10 +141,14 @@ Rectangle {
                 targetY: 0
                 triggerPlacing: shipRectId.placeShipsRunning
 
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
                 //horizontalPlacement: false
             }
             Ship {
-                id : ship2
+                id : ship1
+                shipid: 1
+                objectName: "ship" + shipid
+
                 width : parent.shipWidth*3/4
                 height : parent.shipHeight
 
@@ -144,9 +158,14 @@ Rectangle {
                 targetX: 2
                 targetY: 2
                 triggerPlacing: shipRectId.placeShipsRunning
+
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
             }
             Ship {
-                id : ship3
+                id : ship2
+                shipid: 2
+                objectName: "ship" + shipid
+
                 width : parent.shipWidth/2
                 height : parent.shipHeight
 
@@ -156,9 +175,14 @@ Rectangle {
                 targetX: 4
                 targetY: 4
                 triggerPlacing: shipRectId.placeShipsRunning
+
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
             }
             Ship {
-                id : ship4
+                id : ship3
+                shipid: 3
+                objectName: "ship" + shipid
+
                 width : parent.shipWidth/2
                 height : parent.shipHeight
 
@@ -169,9 +193,13 @@ Rectangle {
                 targetY: 6
                 triggerPlacing: shipRectId.placeShipsRunning
 
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
             }
             Ship {
-                id : ship5
+                id : ship4
+                shipid: 4
+                objectName: "ship" + shipid
+
                 width : parent.shipWidth/4
                 height : parent.shipHeight
 
@@ -181,6 +209,8 @@ Rectangle {
                 targetX: 8
                 targetY: 8
                 triggerPlacing: shipRectId.placeShipsRunning
+
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
                 //horizontalPlacement: false
             }
 
@@ -301,6 +331,7 @@ Rectangle {
                 width: connectRectId.width
                 onClicked: {
                     console.log("This is to Tomi's Connection manager!")
+                    //gameBoardId.qmlSignal("Hou")
                 }
             }
 
@@ -310,4 +341,3 @@ Rectangle {
 
     //} // Row
 }
-

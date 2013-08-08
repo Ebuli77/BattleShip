@@ -27,8 +27,7 @@ int main(int argc, char** argv)
     view.resize(800, 480);
     view.setResizeMode(QQuickView::SizeRootObjectToView);
     //view.setSource(QUrl("resources/qml/main.qml"));
-<<<<<<< HEAD
-    view.setSource(QUrl("qrc:/qml/main.qml"));
+    view.setSource(QUrl("qrc:/qml/MainView.qml"));
 
     //QObject *item = dynamic_cast<QObject *>(view.rootObject());
     QObject *item = view.rootObject();
@@ -38,9 +37,6 @@ int main(int argc, char** argv)
     myTarget.setQmlRoot(item);
     QObject::connect(item, SIGNAL(shipMovedSignal(int,int,int)),&myTarget, SLOT(shipMovement(int,int,int)) );
 
-=======
-    view.setSource(QUrl("qrc:/qml/MainView.qml"));
->>>>>>> 49d8efa4f2b22001e562bbff9ee27f8c887c5179
     view.show();
     return app.exec();
 }
