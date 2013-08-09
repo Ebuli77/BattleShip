@@ -266,6 +266,11 @@ Rectangle {
             id: gameAreaId
             //anchors.right: gameBoardId.right
         }
+        Text {
+            anchors.top: parent.bottom
+            font.pixelSize: 26
+            text: qsTr("Your fleet")
+        }
     }
 
     Rectangle {
@@ -294,6 +299,11 @@ Rectangle {
                     */
             id: shootAreaId
             //anchors.right: gameBoardId.right
+        }
+        Text {
+            anchors.top: parent.bottom
+            font.pixelSize: 26
+            text: qsTr("Opponent's fleet")
         }
     }
 
@@ -351,7 +361,7 @@ Rectangle {
                 onClicked: {
                     console.log("This is to Connection manager!")
                     //gameBoardId.qmlSignal("Hou")
-                    startedAsServer? gameBoardId.startServerSignal(porttext) : gameBoardId.startClientSignal (ipaddresstext, porttext);
+                    startedAsServer? gameBoardId.startServerSignal(porttext.text) : gameBoardId.startClientSignal (ipaddresstext.text, porttext.text);
                 }
             }
 

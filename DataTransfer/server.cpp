@@ -9,7 +9,7 @@ Server::Server(QObject *parent) : QTcpServer(parent), isstatusok(false)
 
 Server::Server(QString port, QObject *parent) : QTcpServer(parent), isstatusok(false)
 {
-    qDebug() << "Creating server, port will be " << port;
+    qDebug() << "Creating server, port will be " << port.toInt();
     //serverstatus = Initialising;
 
     connect(this, SIGNAL(newConnection()), this, SLOT(onNewConnection()));
