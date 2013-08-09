@@ -16,6 +16,7 @@ public:
     Client(QString ip, unsigned int port);
 
     QString playerName();
+    bool status();
     //void sendMsg(QString msg);
 
 signals:
@@ -36,6 +37,7 @@ private:
     //ConnManager *manager;
     QString playername;
     QTcpSocket *socket;
+    bool isstatusok;
 
     //StatusEnum clientstatus;
 

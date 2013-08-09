@@ -7,7 +7,7 @@ Server::Server(QObject *parent) : QTcpServer(parent)
 
 }
 
-Server::Server(QString port, QObject *parent) : QTcpServer(parent)
+Server::Server(QString port, QObject *parent) : QTcpServer(parent), isstatusok(false)
 {
     qDebug() << "Creating server, port will be " << port;
     //serverstatus = Initialising;
@@ -18,8 +18,13 @@ Server::Server(QString port, QObject *parent) : QTcpServer(parent)
     if(this->listen(QHostAddress::Any, port.toInt()))
     {
         qDebug() << "Server started.";
+        this->isstatusok = true;
     }
-    else qDebug() << "Failed to start server!";
+    else
+    {
+        qDebug() << "Failed to start server!";
+        this->isstatusok = false;
+    }
 }
 
 //void Server::newConnRequest(qintptr socketdescription)
@@ -28,6 +33,11 @@ Server::Server(QString port, QObject *parent) : QTcpServer(parent)
     //conn->setSocketDescriptor(socketdescription);
     //emit gotNewConn(conn);
 //}
+
+bool Server::status()
+{
+    return this->isstatusok;
+}
 
 void Server::onNewConnection()
 {
