@@ -46,12 +46,18 @@ Item {
                             console.log("Im grid index nbr:" + index)
                             console.log("Grid coords are x:" + seaTile.x + " , y:" + seaTile.y)
 
-                            // Testing the possibilities on shooting at a tile coords
+
                             // We should check if it's players turn before enabling him to shoot ( == click the tile)
                             // After the tile has been shot, the 'seaTile' can be set as "enabled = false"
                             // We should also disable all of the tiles on players fleet after the game has started (when user presses 'connect'-button)
                             // We also need a short notification for the user to see that it's his turn.
-                            // There shouldalso be an area which always indicates if it's players or the opponents turn, maybe a colored border around the fleet or something
+                            // There should also be an area which always indicates if it's players or the opponents turn, maybe a colored border around the fleet or something
+                            // For easier implementation we should separate the qml grids for players and opponents fleets
+                            // as when the game has started the interaction with them will be different from each other
+                            // Thanks,
+                            // -Tomi  :D
+
+                            // Testing the possibilities on shooting at a tile coords
                             seaTile.color = "black"
                             // Hit could be just "red" tile?
                         }
