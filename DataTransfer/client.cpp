@@ -3,7 +3,7 @@
 #include <QDataStream>
 
 Client::Client(QObject *parent) :
-    QObject(parent)
+    QObject(parent), isstatusok(false)
 {
 
 }

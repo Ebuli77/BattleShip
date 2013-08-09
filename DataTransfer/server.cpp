@@ -2,7 +2,7 @@
 #include <QDataStream>
 //#include "socketconnection.h"
 
-Server::Server(QObject *parent) : QTcpServer(parent)
+Server::Server(QObject *parent) : QTcpServer(parent), isstatusok(false)
 {
 
 }
