@@ -25,7 +25,6 @@ public:
     explicit QMLAccess(QObject *parent = 0);
 
     void setQmlRoot(QObject *pObject);
-
     
 public slots:
     void shipMovement(int shipId, int x_coord, int y_coord);
