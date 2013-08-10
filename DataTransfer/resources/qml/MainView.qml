@@ -108,7 +108,8 @@ Rectangle {
 
 
     //signal qmlSignal(string msg)
-    signal shipMovedSignal(int shipId, int x_coord, int y_coord)
+    signal shipMovedSignal(int shipId)
+    signal addShipToFleetSignal(int shipId)
     signal startClientSignal(string ip, string port)
     signal startServerSignal(string port)
 
@@ -153,7 +154,8 @@ Rectangle {
 
                 triggerPlacing: shipRectId.placeShipsRunning
 
-                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,coordX,coordY)
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid)
+                onAddShipToFleetSignal: gameBoardId.addShipToFleetSignal(shipid)
             }
             Ship {
                 id : ship1
@@ -175,7 +177,8 @@ Rectangle {
 
                 triggerPlacing: shipRectId.placeShipsRunning
 
-                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,coordX,coordY)
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid)
+                onAddShipToFleetSignal: gameBoardId.addShipToFleetSignal(shipid)
             }
             Ship {
                 id : ship2
@@ -197,7 +200,8 @@ Rectangle {
 
                 triggerPlacing: shipRectId.placeShipsRunning
 
-                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,coordX,coordY)
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid)
+                onAddShipToFleetSignal: gameBoardId.addShipToFleetSignal(shipid)
             }
             Ship {
                 id : ship3
@@ -219,7 +223,8 @@ Rectangle {
 
                 triggerPlacing: shipRectId.placeShipsRunning
 
-                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,coordX,coordY)
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid)
+                onAddShipToFleetSignal: gameBoardId.addShipToFleetSignal(shipid)
             }
             Ship {
                 id : ship4
@@ -241,7 +246,8 @@ Rectangle {
 
                 triggerPlacing: shipRectId.placeShipsRunning
 
-                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,coordX,coordY)
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid)
+                onAddShipToFleetSignal: gameBoardId.addShipToFleetSignal(shipid)
             }
 
         } //Grid ships
@@ -305,7 +311,7 @@ Rectangle {
     //shooting range!!
     Rectangle {
         id: shootRectId
-        z: 7
+        z: 0
         color: parent.color
         height: gameBoardId.shipHeight * 10
         width: gameBoardId.shipHeight * 10
@@ -338,7 +344,8 @@ Rectangle {
         anchors.top: parent.top
         anchors.left: spacerThreeId.right
         height: parent.height
-        width: parent.width/4
+        width: parent.width/6
+
 
         Column {
             spacing: 5

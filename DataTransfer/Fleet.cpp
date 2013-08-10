@@ -307,6 +307,7 @@ Ship::hitstatus Fleet::shootCoords(int x, int y, bool into_status, Ship *p_ship)
     //qDebug() << "  Fleet shooting coords [x = " << x <<"][y = " << y << "]" << endl;
 	for (unsigned int i = 0; i < _p_fleet->size(); i++)
 	{
+        qDebug() << "  Shooting ship #" << i << " at Fleet!";
 		//testing
 		/*
 		if (p_ship == _p_fleet->at(i))

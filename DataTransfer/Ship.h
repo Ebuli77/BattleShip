@@ -33,6 +33,7 @@ public:
 
 private:
 
+    int _Id; // for identification between qml <-> c++
 	ShipCoord coords;
 	/*
 	int _x_coord, _y_coord;	// starting point on the board
@@ -50,8 +51,8 @@ protected:
 
 public:
     Ship();
-	Ship(int x_length, int y_length);
-	Ship(int x_coord, int y_coord, int x_length, int y_length);
+    Ship(int id, int x_length, int y_length);
+    Ship(int id, int x_coord, int y_coord, int x_length, int y_length);
     virtual ~Ship();
 
 	// set ship position

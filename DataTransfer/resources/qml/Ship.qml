@@ -8,6 +8,8 @@ Item {
 
     state: "UNPLACED"
 
+    property bool shipAddedToFleet: false;
+
     property int shipid: 0
 
     property int unitLength: 0
@@ -39,6 +41,9 @@ Item {
 
     // Signal to backend game engine
     signal shipMoveSignal()
+
+    // Signal backend to add ship to fleet
+    signal addShipToFleetSignal()
 
     Image {
         width: parent.width; height: parent.height
@@ -81,15 +86,26 @@ Item {
 
             drag.minimumX = originX;
             drag.minimumY = originY;
+
+
+
             /*
             console.log("Current coords are : x = " + currentShipId.x + ", y = " + currentShipId.y);
             console.log("offset x = " + originX + ", y = " + originY);
             */
             startGridSnap();
 
+            if (!shipAddedToFleet)
+            {
+                addShipToFleetSignal();
+                shipAddedToFleet = true;
+                //return;
+            }
+
             currentShipId.x = currentShipId.coordX * currentShipId.height + originX;
             currentShipId.y = currentShipId.coordY * currentShipId.height + originY;
 
+            //
             shipMoveSignal();
 
         }
@@ -102,7 +118,7 @@ Item {
 
     // Places Ship to grid
     function startGridSnap() {
-        console.log("startGridSnap()");
+        //console.log("startGridSnap()");
         for (x_looper = originX; x_looper < (currentShipId.height * 10 + originX); x_looper += currentShipId.height)
         {
             for (y_looper = originY; y_looper < (currentShipId.height * 10 + originY); y_looper += currentShipId.height)
@@ -110,13 +126,11 @@ Item {
                 if ( (currentShipId.x >= x_looper) && (currentShipId.x < (x_looper + currentShipId.height))
                         && (currentShipId.y >= y_looper) && (currentShipId.y < (y_looper + currentShipId.height)) )
                 {
-                    console.log("Ship is inside limits x: " + x_looper + " - " + (x_looper + currentShipId.height) +
-                                " and y: " + y_looper + " - " + (y_looper + currentShipId.height));
-
                     /*
-                    console.log("coordinates are grid x: " + ((x_looper - originX)/currentShipId.height) );
-                    console.log("coordinates are grid y: " + ((y_looper - originY)/currentShipId.height) );
+                    console.log("Ship #" + shipid + " is inside limits x: " + x_looper + " - " + (x_looper + currentShipId.height) +
+                                " and y: " + y_looper + " - " + (y_looper + currentShipId.height));
                     */
+
                     currentShipId.coordX = (x_looper - originX)/currentShipId.height;
                     currentShipId.coordY = (y_looper - originY)/currentShipId.height;
 

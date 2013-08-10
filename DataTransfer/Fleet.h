@@ -34,11 +34,6 @@ private:
 
 public:
 
-    /*
-    Q_INVOKABLE void cppMethod(const QString &msg) {
-             qDebug() << "Called the C++ method with" << msg;
-         }
-*/
     //Fleet(QObject *parent = 0);
     Fleet();
 

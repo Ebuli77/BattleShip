@@ -35,7 +35,9 @@ int main(int argc, char** argv)
     QMLAccess myTarget;
 
     myTarget.setQmlRoot(item);
-    QObject::connect(item, SIGNAL(shipMovedSignal(int,int,int)),&myTarget, SLOT(shipMovement(int,int,int)) );
+    QObject::connect(item, SIGNAL(shipMovedSignal(int)),&myTarget, SLOT(shipMovement(int)) );
+    QObject::connect(item, SIGNAL(addShipToFleetSignal(int)),&myTarget, SLOT(addShipToFleet(int)) );
+
     QObject::connect(item, SIGNAL(startClientSignal(QString, QString)),&myTarget, SLOT(startClient(QString, QString)) );
     QObject::connect(item, SIGNAL(startServerSignal(QString)),&myTarget, SLOT(startServer(QString)) );
 

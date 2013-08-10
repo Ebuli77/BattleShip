@@ -26,6 +26,7 @@ private:
     Fleet *pFleet;
 
 
+    void getShipProperties(int &shipid, int &x_coord, int &y_coord, int &x_length, int &y_length);
 
 public:
     explicit QMLAccess(QObject *parent = 0);
@@ -33,7 +34,8 @@ public:
     void setQmlRoot(QObject *pObject);
     
 public slots:
-    void shipMovement(int shipId, int x_coord, int y_coord);
+    void shipMovement(int shipId);
+    void addShipToFleet(int shipId);
     void startClient(QString ip, QString port);
     void startServer(QString port);
 signals:
