@@ -9,6 +9,8 @@ Item {
     state: "UNPLACED"
 
     property int shipid: 0
+
+    property int unitLength: 0
     //these are for setting origin in parent
     property int originX: 0
     property int originY: 0
@@ -31,12 +33,11 @@ Item {
 
     property int shipAngle: 0
 
-
-    // Position handler variables
+    // Grid snap helpers variables:
     property int x_looper : 0
     property int y_looper : 0
 
-    // Signal to game engine
+    // Signal to backend game engine
     signal shipMoveSignal()
 
     Image {
@@ -50,17 +51,36 @@ Item {
         drag.target: parent
         drag.axis: Drag.XAndYAxis
         drag.minimumX: 0
+        drag.maximumX: currentShipId.unitLength * 10 + originX - currentShipId.unitLength * parent.lengthX + parent.unitLength/2
+        drag.maximumY: currentShipId.unitLength * 10 - currentShipId.unitLength * parent.lengthY + parent.unitLength/2
+
 
         onDoubleClicked: {
 
             if (shipAngle == 0)
+            {
                 shipAngle = 90;
+            }
             else
+            {
                 shipAngle = 0;
+            }
+
+               //mouseArea.drag.maximumX = 500;
+
+            var temp1 = lengthX;
+            lengthX = lengthY;
+            lengthY = temp1;
+
+
+
 
         }
 
         onReleased: {
+
+            drag.minimumX = originX;
+            drag.minimumY = originY;
             /*
             console.log("Current coords are : x = " + currentShipId.x + ", y = " + currentShipId.y);
             console.log("offset x = " + originX + ", y = " + originY);
@@ -80,19 +100,6 @@ Item {
         console.log("Ship #" + shipid + ". C++ set coords x = " + x_coord + ", y = " + y_coord + ", horizontal = " + horizontal);
     }
 
-    /*
-    // testing
-    oncoordXChanged: {
-        currentShipId.x = currentShipId.coordX * currentShipId.height + originX;
-        currentShipId.y = currentShipId.coordY * currentShipId.height + originY;
-    }
-
-    // testing
-    oncoordYChanged: {
-        currentShipId.x = currentShipId.coordX * currentShipId.height + originX;
-        currentShipId.y = currentShipId.coordY * currentShipId.height + originY;
-    }
-    */
     // Places Ship to grid
     function startGridSnap() {
         console.log("startGridSnap()");
@@ -100,8 +107,8 @@ Item {
         {
             for (y_looper = originY; y_looper < (currentShipId.height * 10 + originY); y_looper += currentShipId.height)
             {
-                if ( (currentShipId.x > x_looper) && (currentShipId.x < (x_looper + currentShipId.height))
-                        && (currentShipId.y > y_looper) && (currentShipId.y < (y_looper + currentShipId.height)) )
+                if ( (currentShipId.x >= x_looper) && (currentShipId.x < (x_looper + currentShipId.height))
+                        && (currentShipId.y >= y_looper) && (currentShipId.y < (y_looper + currentShipId.height)) )
                 {
                     console.log("Ship is inside limits x: " + x_looper + " - " + (x_looper + currentShipId.height) +
                                 " and y: " + y_looper + " - " + (y_looper + currentShipId.height));
@@ -158,11 +165,11 @@ Item {
 
     states: [
         State {
-            name: "UNPLACED"
+            name: "UNPLACE"
             PropertyChanges { target: currentShipId; x: startX; y: startY}
         },
         State {
-            name: "PLACED"
+            name: "PLACE"
             PropertyChanges { target: currentShipId; shipAngle: horizontalPlacement?0:90}
         }
     ]
@@ -171,12 +178,12 @@ Item {
     transitions: [
         Transition {
             from: "*"
-            to: "PLACED"
+            to: "PLACE"
             NumberAnimation { properties: "shipAngle"; easing.type: Easing.OutExpo; duration: 2500 }
         },
         Transition {
             from: "*"
-            to: "UNPLACED"
+            to: "UNPLACE"
             NumberAnimation { properties: "shipAngle"; easing.type: Easing.OutExpo; duration: 2500 }
             NumberAnimation { properties: "x"; easing.type: Easing.OutExpo; duration: 2500 }
             NumberAnimation { properties: "y"; easing.type: Easing.OutExpo; duration: 2500 }
@@ -187,7 +194,7 @@ Item {
 
         /*
         runPlacing = triggerPlacing;
-        state = "PLACED";
+        state = "PLACE";
         */
     }
 

@@ -7,6 +7,10 @@ Rectangle {
 
     z: -5
     color: "lightgray"
+
+    // Ship size config
+    property int shipUnitLength : (gameBoardId.height + 20)/(2*10)
+
     property int shipHeight : (gameBoardId.height + 20)/(2*10)//20
     property int shipWidth : shipHeight * 4
 
@@ -131,16 +135,19 @@ Rectangle {
             Ship {
                 id : ship0
                 shipid: 0
-                objectName: "ship0"
+                objectName: "ship" + shipid
 
-                width : parent.shipWidth
-                height : parent.shipHeight
+                unitLength: gameBoardId.shipUnitLength
+
+                width : gameBoardId.shipUnitLength * 4
+                height : gameBoardId.shipUnitLength * 1
 
                 originX: gameRectId.x
                 originY: gameRectId.y
 
                 coordX: 0
                 coordY: 0
+
                 lengthX: 4
                 lengthY: 1
 
@@ -153,8 +160,10 @@ Rectangle {
                 shipid: 1
                 objectName: "ship" + shipid
 
-                width : parent.shipWidth*3/4
-                height : parent.shipHeight
+                unitLength: gameBoardId.shipUnitLength
+
+                width : gameBoardId.shipUnitLength * 3
+                height : gameBoardId.shipUnitLength * 1
 
                 originX: gameRectId.x
                 originY: gameRectId.y
@@ -173,8 +182,10 @@ Rectangle {
                 shipid: 2
                 objectName: "ship" + shipid
 
-                width : parent.shipWidth/2
-                height : parent.shipHeight
+                unitLength: gameBoardId.shipUnitLength
+
+                width : gameBoardId.shipUnitLength * 2
+                height : gameBoardId.shipUnitLength * 1
 
                 originX: gameRectId.x
                 originY: gameRectId.y
@@ -193,8 +204,10 @@ Rectangle {
                 shipid: 3
                 objectName: "ship" + shipid
 
-                width : parent.shipWidth/2
-                height : parent.shipHeight
+                unitLength: gameBoardId.shipUnitLength
+
+                width : gameBoardId.shipUnitLength * 2
+                height : gameBoardId.shipUnitLength * 1
 
                 originX: gameRectId.x
                 originY: gameRectId.y
@@ -213,8 +226,10 @@ Rectangle {
                 shipid: 4
                 objectName: "ship" + shipid
 
-                width : parent.shipWidth/4
-                height : parent.shipHeight
+                unitLength: gameBoardId.shipUnitLength
+
+                width : gameBoardId.shipUnitLength * 1
+                height : gameBoardId.shipUnitLength * 1
 
                 originX: gameRectId.x
                 originY: gameRectId.y
@@ -268,14 +283,10 @@ Rectangle {
         anchors.left: spacerOneId.right
 
         GameGrid {
+            id: gameAreaId
+
             gridHeight: gameBoardId.shipHeight * 10
             gridWidth: gameBoardId.shipHeight * 10
-            /*
-                    height: 500
-                    width: 500
-                    */
-            id: gameAreaId
-            //anchors.right: gameBoardId.right
         }
         Text {
             anchors.top: parent.bottom
@@ -302,14 +313,10 @@ Rectangle {
         anchors.left: spacerTwoId.right
 
         GameGrid {
+            id: shootAreaId
+
             gridHeight: gameBoardId.shipHeight * 10
             gridWidth: gameBoardId.shipHeight * 10
-            /*
-                    height: 500
-                    width: 500
-                    */
-            id: shootAreaId
-            //anchors.right: gameBoardId.right
         }
         Text {
             anchors.top: parent.bottom
