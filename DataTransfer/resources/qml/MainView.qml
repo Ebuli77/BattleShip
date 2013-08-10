@@ -136,15 +136,17 @@ Rectangle {
                 width : parent.shipWidth
                 height : parent.shipHeight
 
-                offsetX: gameRectId.x
-                offsetY: gameRectId.y
+                originX: gameRectId.x
+                originY: gameRectId.y
 
-                targetX: 0
-                targetY: 0
+                coordX: 0
+                coordY: 0
+                lengthX: 4
+                lengthY: 1
+
                 triggerPlacing: shipRectId.placeShipsRunning
 
-                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
-                horizontalPlacement: true
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,coordX,coordY)
             }
             Ship {
                 id : ship1
@@ -154,15 +156,17 @@ Rectangle {
                 width : parent.shipWidth*3/4
                 height : parent.shipHeight
 
-                offsetX: gameRectId.x
-                offsetY: gameRectId.y
+                originX: gameRectId.x
+                originY: gameRectId.y
 
-                targetX: 2
-                targetY: 2
+                coordX: 2
+                coordY: 2
+                lengthX: 3
+                lengthY: 1
+
                 triggerPlacing: shipRectId.placeShipsRunning
 
-                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
-                horizontalPlacement: true
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,coordX,coordY)
             }
             Ship {
                 id : ship2
@@ -172,15 +176,17 @@ Rectangle {
                 width : parent.shipWidth/2
                 height : parent.shipHeight
 
-                offsetX: gameRectId.x
-                offsetY: gameRectId.y
+                originX: gameRectId.x
+                originY: gameRectId.y
 
-                targetX: 4
-                targetY: 4
+                coordX: 4
+                coordY: 4
+                lengthX: 2
+                lengthY: 1
+
                 triggerPlacing: shipRectId.placeShipsRunning
 
-                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
-                horizontalPlacement: true
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,coordX,coordY)
             }
             Ship {
                 id : ship3
@@ -190,15 +196,17 @@ Rectangle {
                 width : parent.shipWidth/2
                 height : parent.shipHeight
 
-                offsetX: gameRectId.x
-                offsetY: gameRectId.y
+                originX: gameRectId.x
+                originY: gameRectId.y
 
-                targetX: 6
-                targetY: 6
+                coordX: 6
+                coordY: 6
+                lengthX: 2
+                lengthY: 1
+
                 triggerPlacing: shipRectId.placeShipsRunning
 
-                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
-                horizontalPlacement: true
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,coordX,coordY)
             }
             Ship {
                 id : ship4
@@ -208,18 +216,21 @@ Rectangle {
                 width : parent.shipWidth/4
                 height : parent.shipHeight
 
-                offsetX: gameRectId.x
-                offsetY: gameRectId.y
+                originX: gameRectId.x
+                originY: gameRectId.y
 
-                targetX: 8
-                targetY: 8
+                coordX: 8
+                coordY: 8
+                lengthX: 1
+                lengthY: 1
+
                 triggerPlacing: shipRectId.placeShipsRunning
 
-                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,targetX,targetY)
-                horizontalPlacement: true
+                onShipMoveSignal: gameBoardId.shipMovedSignal(shipid,coordX,coordY)
             }
 
         } //Grid ships
+
     }
 
     /*
@@ -368,6 +379,8 @@ Rectangle {
         }
 
     }
+
+
 
     //} // Row
 }

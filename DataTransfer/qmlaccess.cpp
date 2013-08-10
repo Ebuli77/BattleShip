@@ -27,15 +27,24 @@ void QMLAccess::startServer(QString port)
     pServer = new Server(port);
 }
 
+/**
+ * @brief   QMLAccess::shipMovement.
+ *          Ship movement in UI triggers this function to check action against game engine
+ *          and then providing information back to UI.
+ *
+ * @param shipId    qml ship id
+ * @param x_coord   x coordinates of ship
+ * @param y_coord   y coordinates of ship
+ */
 void QMLAccess::shipMovement(int shipId, int x_coord, int y_coord)
 {
-    qDebug() << "Ship id #" <<shipId << " moved to coords: x = " << x_coord << ", y = " << y_coord;
+    qDebug() << "Ship id #" <<shipId << ". moved to coords: x = " << x_coord << ", y = " << y_coord;
 
     QString strShip = QString("ship%1").arg(shipId);
     QObject *pShip = pRootQml->findChild<QObject *>(strShip);
     if (!pShip)
     {
-        qDebug() << "no ship0 found!!!";
+        qDebug() << "No" << strShip << " found!!!";
         return;
     }
 

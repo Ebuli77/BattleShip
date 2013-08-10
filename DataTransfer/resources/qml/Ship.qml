@@ -9,21 +9,26 @@ Item {
     state: "UNPLACED"
 
     property int shipid: 0
-    property bool horizontalPlacement: true
-
     //these are for setting origin in parent
-    property int offsetX: 0
-    property int offsetY: 0
+    property int originX: 0
+    property int originY: 0
 
+    property int startX: 0
+    property int startY: 0
+
+    /////////////////////////////////////////////
     // ship coordinates in the fleet
-    property int targetX: 0
-    property int targetY: 0
+    property int coordX: 0
+    property int coordY: 0
+
+    property int lengthX: 0
+    property int lengthY: 0
+    /////////////////////////////////////////////
 
     // triggers placing animation
     property bool triggerPlacing: false
     property bool runPlacing: false
 
-    // if horizontalPlacement == false then this is 90
     property int shipAngle: 0
 
 
@@ -48,20 +53,22 @@ Item {
 
         onDoubleClicked: {
 
-            horizontalPlacement = !horizontalPlacement;
-            shipAngle = horizontalPlacement?0:90;
+            if (shipAngle == 0)
+                shipAngle = 90;
+            else
+                shipAngle = 0;
 
         }
 
         onReleased: {
             /*
             console.log("Current coords are : x = " + currentShipId.x + ", y = " + currentShipId.y);
-            console.log("offset x = " + offsetX + ", y = " + offsetY);
+            console.log("offset x = " + originX + ", y = " + originY);
             */
             startGridSnap();
 
-            currentShipId.x = currentShipId.targetX * currentShipId.height + offsetX;
-            currentShipId.y = currentShipId.targetY * currentShipId.height + offsetY;
+            currentShipId.x = currentShipId.coordX * currentShipId.height + originX;
+            currentShipId.y = currentShipId.coordY * currentShipId.height + originY;
 
             shipMoveSignal();
 
@@ -70,28 +77,28 @@ Item {
 
     function setCoords(x_coord, y_coord, horizontal)
     {
-        console.log("C++ set coords x = " + x_coord + ", y = " + y_coord + ", horizontal = " + horizontal);
+        console.log("Ship #" + shipid + ". C++ set coords x = " + x_coord + ", y = " + y_coord + ", horizontal = " + horizontal);
     }
 
     /*
     // testing
-    onTargetXChanged: {
-        currentShipId.x = currentShipId.targetX * currentShipId.height + offsetX;
-        currentShipId.y = currentShipId.targetY * currentShipId.height + offsetY;
+    oncoordXChanged: {
+        currentShipId.x = currentShipId.coordX * currentShipId.height + originX;
+        currentShipId.y = currentShipId.coordY * currentShipId.height + originY;
     }
 
     // testing
-    onTargetYChanged: {
-        currentShipId.x = currentShipId.targetX * currentShipId.height + offsetX;
-        currentShipId.y = currentShipId.targetY * currentShipId.height + offsetY;
+    oncoordYChanged: {
+        currentShipId.x = currentShipId.coordX * currentShipId.height + originX;
+        currentShipId.y = currentShipId.coordY * currentShipId.height + originY;
     }
     */
     // Places Ship to grid
     function startGridSnap() {
         console.log("startGridSnap()");
-        for (x_looper = offsetX; x_looper < (currentShipId.height * 10 + offsetX); x_looper += currentShipId.height)
+        for (x_looper = originX; x_looper < (currentShipId.height * 10 + originX); x_looper += currentShipId.height)
         {
-            for (y_looper = offsetY; y_looper < (currentShipId.height * 10 + offsetY); y_looper += currentShipId.height)
+            for (y_looper = originY; y_looper < (currentShipId.height * 10 + originY); y_looper += currentShipId.height)
             {
                 if ( (currentShipId.x > x_looper) && (currentShipId.x < (x_looper + currentShipId.height))
                         && (currentShipId.y > y_looper) && (currentShipId.y < (y_looper + currentShipId.height)) )
@@ -100,11 +107,11 @@ Item {
                                 " and y: " + y_looper + " - " + (y_looper + currentShipId.height));
 
                     /*
-                    console.log("coordinates are grid x: " + ((x_looper - offsetX)/currentShipId.height) );
-                    console.log("coordinates are grid y: " + ((y_looper - offsetY)/currentShipId.height) );
+                    console.log("coordinates are grid x: " + ((x_looper - originX)/currentShipId.height) );
+                    console.log("coordinates are grid y: " + ((y_looper - originY)/currentShipId.height) );
                     */
-                    currentShipId.targetX = (x_looper - offsetX)/currentShipId.height;
-                    currentShipId.targetY = (y_looper - offsetY)/currentShipId.height;
+                    currentShipId.coordX = (x_looper - originX)/currentShipId.height;
+                    currentShipId.coordY = (y_looper - originY)/currentShipId.height;
 
                     return;
                 }
@@ -113,11 +120,11 @@ Item {
         console.log("Ship is off the course!!!!");
     }
 
-
+    /*
     NumberAnimation on x {
         running: currentShipId.runPlacing
         //from: ship4.x;
-        to: currentShipId.targetX * currentShipId.height + offsetX
+        to: currentShipId.coordX * currentShipId.height + originX
         duration: 2500
         easing.type: Easing.OutExpo
     }
@@ -125,11 +132,11 @@ Item {
     NumberAnimation on y {
         running: currentShipId.runPlacing//placeShipsRunning
         //from: ship4.x;
-        to: currentShipId.targetY * currentShipId.height + offsetY
+        to: currentShipId.coordY * currentShipId.height + originY
         duration: 2500
         easing.type: Easing.OutExpo
     }
-
+    */
 
     Behavior on shipAngle {
         NumberAnimation { duration: 200; easing.type: Easing.OutExpo}
@@ -152,7 +159,7 @@ Item {
     states: [
         State {
             name: "UNPLACED"
-            PropertyChanges { target: currentShipId; shipAngle: 0}
+            PropertyChanges { target: currentShipId; x: startX; y: startY}
         },
         State {
             name: "PLACED"
@@ -171,14 +178,27 @@ Item {
             from: "*"
             to: "UNPLACED"
             NumberAnimation { properties: "shipAngle"; easing.type: Easing.OutExpo; duration: 2500 }
+            NumberAnimation { properties: "x"; easing.type: Easing.OutExpo; duration: 2500 }
+            NumberAnimation { properties: "y"; easing.type: Easing.OutExpo; duration: 2500 }
         }
     ]
 
     onTriggerPlacingChanged: {
 
+        /*
         runPlacing = triggerPlacing;
         state = "PLACED";
+        */
     }
+
+    // Run only once in startup
+
+    Component.onCompleted: {
+        console.log("Ship #" + shipid + " start coords x:" + currentShipId.x + ", y:" + currentShipId.y);
+        startX = currentShipId.x;
+        startY = currentShipId.y;
+    }
+
 
 
 }
