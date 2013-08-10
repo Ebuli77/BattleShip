@@ -4,6 +4,9 @@
 #include <QObject>
 #include <QDebug>
 
+#include "client.h"
+#include "server.h"
+
 /**
  * @brief   The QMLAccess class is aggregate class holding BattleShip games Fleet with ships.
  *
@@ -17,9 +20,12 @@ class QMLAccess : public QObject
     Q_OBJECT
 
 private:
+    QObject *pRootQml;
+    Client *pClient;
+    Server *pServer;
     Fleet *pFleet;
 
-    QObject *pRootQml;
+
 
 public:
     explicit QMLAccess(QObject *parent = 0);
@@ -28,6 +34,8 @@ public:
     
 public slots:
     void shipMovement(int shipId, int x_coord, int y_coord);
+    void startClient(QString ip, QString port);
+    void startServer(QString port);
 signals:
 
     

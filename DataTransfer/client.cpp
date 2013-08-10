@@ -3,12 +3,12 @@
 #include <QDataStream>
 
 Client::Client(QObject *parent) :
-    QObject(parent)
+    QObject(parent), isstatusok(false)
 {
 
 }
 
-Client::Client(QString ip, unsigned int port)
+Client::Client(QString ip, unsigned int port): isstatusok(false)
 {
     qDebug() << "creating client with ip " << ip << " and port " << port;
 
@@ -21,8 +21,19 @@ Client::Client(QString ip, unsigned int port)
     if(!socket->waitForConnected(5000))
     {
         qDebug() << "Client failed to connect!";
+        this->isstatusok = false;
+    }
+    else
+    {
+        qDebug() << "Client connected!";
+        this->isstatusok = true;
     }
 
+}
+
+bool Client::status()
+{
+    return this->isstatusok;
 }
 
 QString Client::playerName()

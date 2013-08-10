@@ -3,7 +3,7 @@
 #include "Fleet.h"
 
 QMLAccess::QMLAccess(QObject *parent) :
-    QObject(parent), pRootQml(0)
+    QObject(parent), pRootQml(0), pClient(0), pServer(0)
 {
     pFleet = new Fleet();
 
@@ -13,6 +13,18 @@ QMLAccess::QMLAccess(QObject *parent) :
 void QMLAccess::setQmlRoot(QObject *pObject)
 {
     pRootQml = pObject;
+}
+
+void QMLAccess::startClient(QString ip, QString port)
+{
+    qDebug() << "Start the client!";
+    pClient = new Client(ip, port.toInt());
+}
+
+void QMLAccess::startServer(QString port)
+{
+    qDebug() << "Start the server!";
+    pServer = new Server(port);
 }
 
 void QMLAccess::shipMovement(int shipId, int x_coord, int y_coord)

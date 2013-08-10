@@ -15,6 +15,7 @@ class Server : public QTcpServer
 public:
     explicit Server(QObject *parent = 0);
     explicit Server(QString port, QObject *parent = 0);
+    bool status();
     //void onNewConnection();
     
 signals:
@@ -23,7 +24,7 @@ signals:
 
 
 public slots:
-   // void newConnRequest(qintptr socketdescription);
+    // void newConnRequest(qintptr socketdescription);
     void onNewConnection();
     void sendData(Status::Protocol &protocol);
     void receiveData();
@@ -31,6 +32,7 @@ public slots:
 private:
     QString port;
     QTcpSocket* socket;
+    bool isstatusok;
 
     Status::StatusEnum serverstatus;
 
