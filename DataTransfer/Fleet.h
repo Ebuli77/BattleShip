@@ -43,7 +43,7 @@ public:
 	int setSeaArea(int x, int y); 	//< set fleet's sea area
 
 	bool addShip(Ship *p_ship); 	//< adds ship and tests fleet area for other ships
-	bool removeShip(Ship *p_ship);
+    bool removeShip(int shipid);
 	int shuffleFleetAtArea(); //< randomize vessel locations into given coordinates
 
 	bool setShipToArea(Ship *p_ship);		//< sets ship to fleet's sea

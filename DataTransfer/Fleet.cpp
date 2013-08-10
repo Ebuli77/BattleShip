@@ -57,7 +57,7 @@ int Fleet::shuffleFleetAtArea()
 
 	clearFleetArea();
 
-	Ship *testShip = new Ship(0,0,0,0); ///< generate template ship for testing area before setting ship
+    Ship *testShip = new Ship(0,0,0,0,0); ///< generate template ship for testing area before setting ship
 
 	for (unsigned int i = 0; i < _p_fleet->size(); i++)
 	{
@@ -126,6 +126,8 @@ bool Fleet::testShipToSeaArea(Ship *p_ship)
 {
 	int x_size, y_size = 0;
 	int x_coord, y_coord = 0;
+
+    if (!p_ship) return false;
 
 	// get ship information coordinates and size
 	p_ship->getShip(x_size, y_size);
@@ -240,9 +242,18 @@ bool Fleet::addShip(Ship *p_ship)
 	return false; //< ship has been put to reserve => coordinates are x_max,y_max
 }
 
-bool Fleet::removeShip(Ship *p_ship)
+bool Fleet::removeShip(int shipid)
 {
 	//_p_fleet->erase(p_ship);
+    for (unsigned int i = 0; i < _p_fleet->size(); i++)
+    {
+        if (_p_fleet->at(i)->getId() == shipid)
+        {
+            qDebug() << "[Engine|Fleet] Removing Ship #" << shipid;
+            _p_fleet->erase(_p_fleet->begin() + i);
+            return true;
+        }
+    }
 
 	return false;
 }
@@ -250,12 +261,22 @@ bool Fleet::removeShip(Ship *p_ship)
 /**
  * Returns ship at given index
  *
- * @return Ship pointer to given index when true, else 0
+ * @return Ship pointer to given vector index when true, else 0
  */
-Ship *Fleet::getShip(unsigned int idx)
+Ship *Fleet::getShip(unsigned int shipid)
 {
+    /*
 	if (idx > _p_fleet->size()) return 0;
-	return _p_fleet->at(idx);
+    return _p_fleet->at(idx);*/
+
+    for (unsigned int i = 0; i < _p_fleet->size(); i++)
+    {
+        if (_p_fleet->at(i)->getId() == shipid)
+        {
+            return _p_fleet->at(i);
+        }
+    }
+    return 0;
 }
 
 int Fleet::count()
@@ -303,11 +324,11 @@ Ship::hitstatus Fleet::shootCoords(int x, int y, bool into_status, Ship *p_ship)
 {
 	Ship::hitstatus status = Ship::E_MISSED;
 
-    qDebug() << "  Shooting: **** x = " << x <<", y = " << y << endl;
+    //qDebug() << "  Shooting: **** x = " << x <<", y = " << y << endl;
     //qDebug() << "  Fleet shooting coords [x = " << x <<"][y = " << y << "]" << endl;
 	for (unsigned int i = 0; i < _p_fleet->size(); i++)
 	{
-        qDebug() << "  Shooting ship #" << i << " at Fleet!";
+        //qDebug() << "  Shooting ship #" << i << " at Fleet!";
 		//testing
 		/*
 		if (p_ship == _p_fleet->at(i))

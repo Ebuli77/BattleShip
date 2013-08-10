@@ -125,7 +125,7 @@ bool Ship::setShip(int x_length, int y_length)
 	coords._x_length = x_length;
 	coords._y_length = y_length;
 
-    qDebug() << "Ship location [x = " << coords._x_coord <<"] [y = " << coords._y_coord << "]" << endl;
+    //qDebug() << "Ship location [x = " << coords._x_coord <<"] [y = " << coords._y_coord << "]" << endl;
 
 	setShootArray();
 

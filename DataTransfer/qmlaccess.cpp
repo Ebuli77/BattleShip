@@ -42,8 +42,24 @@ void QMLAccess::shipMovement(int shipId)
     getShipProperties(shipId, x_coord, y_coord, x_length, y_length);
 
 
-    qDebug() << "[Engine] Ship #" << shipId << " coordX: " << x_coord << ", coordY: " << y_coord
+    qDebug() << "[Engine] Moving Ship #" << shipId << " coordX: " << x_coord << ", coordY: " << y_coord
              << ", lengthX: " << x_length << ", lengthY: " << y_length;
+
+    // get ship from fleet and set new coordinates and dimentions
+    Ship *pShip = pFleet->getShip(shipId);
+    pShip->setCoord(x_coord, y_coord);
+    pShip->setShip(x_length, y_length);
+
+    // test location with new settings
+    if (pFleet->testShipToSeaArea(pFleet->getShip(shipId)))
+    {
+        qDebug() << "\tNew location success!";
+    }
+    else
+    {
+        qDebug() << "\tNew location prohibited!";
+    }
+
     /*
     QVariant x = 1;
     QVariant y = 2;
@@ -62,34 +78,43 @@ void QMLAccess::addShipToFleet(int shipId)
     int x_coord, y_coord, x_length, y_length = 0;
     getShipProperties(shipId, x_coord, y_coord, x_length, y_length);
 
-    qDebug() << "[Engine] Adding Ship #" << shipId << " to Fleet!";
+    //qDebug() << "[Engine] Adding Ship #" << shipId << " to Fleet!";
 
-    qDebug() << "[Engine] Ship #" << shipId << " coordX: " << x_coord << ", coordY: " << y_coord
+    qDebug() << "[Engine] Adding Ship #" << shipId << " coordX: " << x_coord << ", coordY: " << y_coord
              << ", lengthX: " << x_length << ", lengthY: " << y_length;
 
-    if (pFleet->addShip(new Ship(x_coord, y_coord, x_length, y_length)))
+    if (pFleet->addShip(new Ship(shipId, x_coord, y_coord, x_length, y_length)))
     {
         qDebug() << "\tSuccess";
     }
     else
+    {
         qDebug() << "\tFailed";
+    }
 
 }
 
 
 void QMLAccess::getShipProperties(int &shipid, int &x_coord, int &y_coord, int &x_length, int &y_length)
 {
-    QString strShip = QString("ship%1").arg(shipid);
-    QObject *pShip = pRootQml->findChild<QObject *>(strShip);
-    if (!pShip)
+    //QString strShip = QString("ship%1").arg(shipid);
+    //QObject *pShip = pRootQml->findChild<QObject *>(strShip);
+    QObject *pQShip = getShipQObj(shipid);
+    if (!pQShip)
     {
-        qDebug() << "No" << strShip << " found!!!";
+        qDebug() << "No Ship #" << shipid << " found!!!";
         return;
     }
 
     // Now we have access to ship thorugh QObject pShip and can read properties from ship
-    x_coord = pShip->property("coordX").toInt();
-    y_coord = pShip->property("coordY").toInt();
-    x_length = pShip->property("lengthX").toInt();
-    y_length = pShip->property("lengthY").toInt();
+    x_coord = pQShip->property("coordX").toInt();
+    y_coord = pQShip->property("coordY").toInt();
+    x_length = pQShip->property("lengthX").toInt();
+    y_length = pQShip->property("lengthY").toInt();
+}
+
+QObject *QMLAccess::getShipQObj(int shipid)
+{
+    QString strShip = QString("ship%1").arg(shipid);
+    return pRootQml->findChild<QObject *>(strShip);
 }

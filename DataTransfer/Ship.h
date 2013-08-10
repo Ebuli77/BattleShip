@@ -55,6 +55,8 @@ public:
     Ship(int id, int x_coord, int y_coord, int x_length, int y_length);
     virtual ~Ship();
 
+    int getId() { return _Id; }
+
 	// set ship position
 	bool setCoord(int x_coord, int y_coord);
 	inline void getCoord(int &x_coord, int &y_coord)

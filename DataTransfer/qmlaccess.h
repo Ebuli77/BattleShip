@@ -27,7 +27,8 @@ private:
 
 
     void getShipProperties(int &shipid, int &x_coord, int &y_coord, int &x_length, int &y_length);
-
+protected:
+    QObject *getShipQObj(int shipid); // returns handle to qml ship object
 public:
     explicit QMLAccess(QObject *parent = 0);
 
