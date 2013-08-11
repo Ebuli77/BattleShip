@@ -7,5 +7,6 @@
         <file>qml/sea.png</file>
         <file>qml/Ship.qml</file>
         <file>qml/MainView.qml</file>
+        <file>qml/explode.png</file>
     </qresource>
 </RCC>

@@ -327,6 +327,8 @@ Rectangle {
         GameGrid {
             id: gameAreaId
 
+            isOpponent: false
+
             gridHeight: gameBoardId.shipHeight * 10
             gridWidth: gameBoardId.shipHeight * 10
         }
@@ -366,6 +368,8 @@ Rectangle {
 
         GameGrid {
             id: shootAreaId
+
+            isOpponent: true
 
             gridHeight: gameBoardId.shipHeight * 10
             gridWidth: gameBoardId.shipHeight * 10

@@ -2,6 +2,8 @@ import QtQuick 2.0
 Item {
     id: gameId
 
+    property bool isOpponent: false
+
     property int gridHeight: 300
     property int gridWidth: 300
     //property alias height: rectId.height
@@ -34,9 +36,18 @@ Item {
                     opacity:0.6
                     radius:5
                     Image {
+                        z:0
                         anchors.fill: parent
                         source : "Blue_Water.png"
                     }
+                    Image {
+                        id: explodeId
+                        z:1
+                        anchors.fill: parent
+                        source : "explode.png"
+                        visible: false;
+                    }
+
                     MouseArea{
                         anchors.fill: parent
                         //hoverEnabled: true
@@ -59,6 +70,9 @@ Item {
 
                             // Testing the possibilities on shooting at a tile coords
                             seaTile.color = "black"
+
+                            if (isOpponent)
+                                explodeId.visible = true;
                             // Hit could be just "red" tile?
                         }
                         //onEntered:{console.log("little-enter")}
