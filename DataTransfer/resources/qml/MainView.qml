@@ -125,6 +125,8 @@ Rectangle {
         //z:-4
 
         property bool placeShipsRunning: false
+
+        /*
         Column {
             id : shipContainer
             objectName: "shipContainer"
@@ -132,11 +134,13 @@ Rectangle {
             //anchors.left: gameBoardId.left
             property int shipWidth: gameBoardId.shipWidth
             property int shipHeight: gameBoardId.shipHeight
-
+        */
             Ship {
                 id : ship0
                 shipid: 0
                 objectName: "ship" + shipid
+
+                anchors.top: shipRectId.top
 
                 unitLength: gameBoardId.shipUnitLength
 
@@ -156,11 +160,15 @@ Rectangle {
 
                 onShipMoveSignal: gameBoardId.shipMovedSignal(shipid)
                 onAddShipToFleetSignal: gameBoardId.addShipToFleetSignal(shipid)
+
             }
             Ship {
                 id : ship1
                 shipid: 1
                 objectName: "ship" + shipid
+
+                anchors.top: ship0.bottom
+                anchors.topMargin: 5
 
                 unitLength: gameBoardId.shipUnitLength
 
@@ -185,6 +193,9 @@ Rectangle {
                 shipid: 2
                 objectName: "ship" + shipid
 
+                anchors.top: ship1.bottom
+                anchors.topMargin: 5
+
                 unitLength: gameBoardId.shipUnitLength
 
                 width : gameBoardId.shipUnitLength * 2
@@ -207,6 +218,9 @@ Rectangle {
                 id : ship3
                 shipid: 3
                 objectName: "ship" + shipid
+
+                anchors.top: ship2.bottom
+                anchors.topMargin: 5
 
                 unitLength: gameBoardId.shipUnitLength
 
@@ -231,6 +245,9 @@ Rectangle {
                 shipid: 4
                 objectName: "ship" + shipid
 
+                anchors.top: ship3.bottom
+                anchors.topMargin: 5
+
                 unitLength: gameBoardId.shipUnitLength
 
                 width : gameBoardId.shipUnitLength * 1
@@ -249,9 +266,9 @@ Rectangle {
                 onShipMoveSignal: gameBoardId.shipMovedSignal(shipid)
                 onAddShipToFleetSignal: gameBoardId.addShipToFleetSignal(shipid)
             }
-
-        } //Grid ships
-
+        /*
+        } //column
+        */
     }
 
     /*

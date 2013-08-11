@@ -106,6 +106,11 @@ Item {
             shipMoveSignal();
 
         }
+
+        onPressed: {
+            currentShipId.anchors = undefined;
+            //currentShipId.anchors.topMargin = undefined;
+        }
     }
 
     function setCoords(x_coord, y_coord, horizontal)
