@@ -6,9 +6,9 @@ Item {
     width: 200
     height: 50
 
-    state: "UNPLACED"
-
     property bool shipAddedToFleet: false;
+    property bool shipPlacedCorrectly: false;
+
 
     property int shipid: 0
 
@@ -59,7 +59,6 @@ Item {
         drag.maximumX: currentShipId.unitLength * 10 + originX - currentShipId.unitLength * parent.lengthX + parent.unitLength/2
         drag.maximumY: currentShipId.unitLength * 10 - currentShipId.unitLength * parent.lengthY + parent.unitLength/2
 
-
         onDoubleClicked: {
 
             if (shipAngle == 0)
@@ -86,8 +85,6 @@ Item {
 
             drag.minimumX = originX;
             drag.minimumY = originY;
-
-
 
             /*
             console.log("Current coords are : x = " + currentShipId.x + ", y = " + currentShipId.y);
@@ -141,6 +138,14 @@ Item {
         console.log("Ship is off the course!!!!");
     }
 
+    function initStartPosition()
+    {
+        x = startX;
+        y = startY;
+        shipAngle = 0;
+    }
+
+
     /*
     NumberAnimation on x {
         running: currentShipId.runPlacing
@@ -158,6 +163,10 @@ Item {
         easing.type: Easing.OutExpo
     }
     */
+
+    Behavior on scale {
+        NumberAnimation { duration: 500; easing.type: Easing.OutBounce}
+    }
 
     Behavior on shipAngle {
         NumberAnimation { duration: 200; easing.type: Easing.OutExpo}
@@ -177,6 +186,7 @@ Item {
         angle: shipAngle
     }
 
+    /*
     states: [
         State {
             name: "UNPLACE"
@@ -203,17 +213,12 @@ Item {
             NumberAnimation { properties: "y"; easing.type: Easing.OutExpo; duration: 2500 }
         }
     ]
+    */
 
-    onTriggerPlacingChanged: {
-
-        /*
-        runPlacing = triggerPlacing;
-        state = "PLACE";
-        */
-    }
+    //onShipPlacedCorrectlyChanged: console.log("shipPlacedCorrectly is now: " + shipPlacedCorrectly);
+    onShipAddedToFleetChanged: console.log("shipAddedToFleetChanged is now: " + shipAddedToFleet);
 
     // Run only once in startup
-
     Component.onCompleted: {
         console.log("Ship #" + shipid + " start coords x:" + currentShipId.x + ", y:" + currentShipId.y);
         startX = currentShipId.x;

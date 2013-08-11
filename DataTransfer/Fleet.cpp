@@ -117,7 +117,7 @@ bool Fleet::setShipToArea(Ship *p_ship)
 	}
 
 	//Throw ship out of gaming area! Take it to the reserve
-	p_ship->setCoord(_x_max,_y_max);
+    //p_ship->setCoord(_x_max,_y_max);
 
 	return false;
 }

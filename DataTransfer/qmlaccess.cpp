@@ -18,13 +18,15 @@ void QMLAccess::setQmlRoot(QObject *pObject)
 void QMLAccess::startClient(QString ip, QString port)
 {
     qDebug() << "Start the client!";
-    pClient = new Client(ip, port.toInt());
+    updateFleetStatus();
+    //pClient = new Client(ip, port.toInt());
 }
 
 void QMLAccess::startServer(QString port)
 {
     qDebug() << "Start the server!";
-    pServer = new Server(port);
+    updateFleetStatus();
+    //pServer = new Server(port);
 }
 
 /**
@@ -51,12 +53,14 @@ void QMLAccess::shipMovement(int shipId)
     pShip->setShip(x_length, y_length);
 
     // test location with new settings
-    if (pFleet->testShipToSeaArea(pFleet->getShip(shipId)))
+    if (pFleet->testShipToSeaArea(pShip))
     {
+        getShipQObj(shipId)->setProperty("shipPlacedCorrectly", true);
         qDebug() << "\tNew location success!";
     }
     else
     {
+        getShipQObj(shipId)->setProperty("shipPlacedCorrectly", false);
         qDebug() << "\tNew location prohibited!";
     }
 
@@ -117,4 +121,47 @@ QObject *QMLAccess::getShipQObj(int shipid)
 {
     QString strShip = QString("ship%1").arg(shipid);
     return pRootQml->findChild<QObject *>(strShip);
+}
+
+/**
+ * @brief QMLAccess::updateFleetStatus
+ *
+ * Syncronizes back end with QML. If ship is not fitted to Fleet then this function
+ * moves that ship off the fleet are back to starting position.
+ */
+void QMLAccess::updateFleetStatus()
+{
+    QObject *pQShip = 0;
+    int shipid, countOfRemovable = 0;
+    int removeArray[5] = {0};
+
+    qDebug() << "Fleet size for removing is " << pFleet->count();
+    for (unsigned int i = 0; i < pFleet->count(); i++)
+    {
+        shipid = pFleet->getShip(i)->getId();
+        pQShip = getShipQObj(shipid);
+        if (pQShip)
+        {
+            // if ship is not placed correctly then move back to start position
+            if (!pQShip->property("shipPlacedCorrectly").toBool())
+            {
+                removeArray[countOfRemovable] = shipid;
+                countOfRemovable++;
+
+                QVariant falseVal = 0;
+                pQShip->setProperty("shipAddedToFleet", falseVal);
+
+
+                QMetaObject::invokeMethod(pQShip, "initStartPosition");
+
+            }
+        }
+    }
+
+    // No remove ships from fleet
+    for (unsigned int i = 0; i < countOfRemovable; i++)
+    {
+        qDebug() << "Removing ship #" << removeArray[i];
+        pFleet->removeShip(removeArray[i]);
+    }
 }
