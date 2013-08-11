@@ -108,8 +108,8 @@ Item {
         }
 
         onPressed: {
-            currentShipId.anchors = undefined;
-            //currentShipId.anchors.topMargin = undefined;
+            currentShipId.anchors.top = undefined;
+            currentShipId.anchors.topMargin = undefined;
         }
     }
 

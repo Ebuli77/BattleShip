@@ -140,7 +140,7 @@ Rectangle {
                 shipid: 0
                 objectName: "ship" + shipid
 
-                anchors.top: shipRectId.top
+                //anchors.top: shipRectId.top
 
                 unitLength: gameBoardId.shipUnitLength
 
@@ -167,8 +167,12 @@ Rectangle {
                 shipid: 1
                 objectName: "ship" + shipid
 
+                /*
                 anchors.top: ship0.bottom
                 anchors.topMargin: 5
+                */
+                x: 0
+                y: height + 5;
 
                 unitLength: gameBoardId.shipUnitLength
 
@@ -193,8 +197,13 @@ Rectangle {
                 shipid: 2
                 objectName: "ship" + shipid
 
+                /*
                 anchors.top: ship1.bottom
                 anchors.topMargin: 5
+                */
+
+                x: 0
+                y: (height + 5)*2;
 
                 unitLength: gameBoardId.shipUnitLength
 
@@ -219,8 +228,13 @@ Rectangle {
                 shipid: 3
                 objectName: "ship" + shipid
 
+                /*
                 anchors.top: ship2.bottom
                 anchors.topMargin: 5
+                */
+
+                x: 0
+                y: (height + 5)*3;
 
                 unitLength: gameBoardId.shipUnitLength
 
@@ -245,8 +259,13 @@ Rectangle {
                 shipid: 4
                 objectName: "ship" + shipid
 
+                /*
                 anchors.top: ship3.bottom
                 anchors.topMargin: 5
+                */
+
+                x: 0
+                y: (height + 5)*4;
 
                 unitLength: gameBoardId.shipUnitLength
 
@@ -312,10 +331,20 @@ Rectangle {
             gridWidth: gameBoardId.shipHeight * 10
         }
         Text {
+            id: playerTextId
             anchors.top: parent.bottom
             font.pixelSize: 26
             text: qsTr("Your fleet")
         }
+    }
+
+    Text {
+        anchors.top: gameRectId.bottom
+        anchors.left: spacerOneId.right
+        anchors.topMargin: 30
+        anchors.leftMargin: 30
+        font.pixelSize: 50
+        text: qsTr("Place Your Ships!")
     }
 
     Rectangle {
