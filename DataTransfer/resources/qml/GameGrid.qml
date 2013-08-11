@@ -8,6 +8,8 @@ Item {
 
     property int gridHeight: 300
     property int gridWidth: 300
+
+    signal shootCoords(int x_coord, int y_coord)
     //property alias height: rectId.height
     //property alias width: rectId.width
 
@@ -74,7 +76,16 @@ Item {
                             seaTile.color = "black"
 
                             if (isOpponent)
+                            {
+                                //testing
                                 explodeId.visible = true;
+
+                                var y_coord = index/rectId.numOfColumns;
+                                var x_coord = index%10;
+                                console.log("UI Shoot coords x:" +  x_coord + ", y:" + y_coord);
+
+                                shootCoords(x_coord, y_coord);
+                            }
                             // Hit could be just "red" tile?
                         }
                         //onEntered:{console.log("little-enter")}

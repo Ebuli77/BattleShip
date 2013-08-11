@@ -112,6 +112,8 @@ Rectangle {
     //signal qmlSignal(string msg)
     signal shipMovedSignal(int shipId)
     signal addShipToFleetSignal(int shipId)
+    signal shootCoords(int x_coord, int y_coord)
+
     signal startClientSignal(string ip, string port)
     signal startServerSignal(string port)
 
@@ -383,6 +385,10 @@ Rectangle {
             anchors.top: parent.bottom
             font.pixelSize: 26
             text: qsTr("Opponent's fleet")
+        }
+
+        Component.onCompleted: {
+            shootAreaId.shootCoords.connect(shootCoords);
         }
     }
 
