@@ -4,6 +4,8 @@ Item {
 
     property bool isOpponent: false
 
+    property bool gameStarted: false
+
     property int gridHeight: 300
     property int gridWidth: 300
     //property alias height: rectId.height

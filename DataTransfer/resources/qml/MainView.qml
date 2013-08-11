@@ -17,6 +17,8 @@ Rectangle {
     property bool startedAsServer: false
     property bool startedAsClient: false
 
+    property bool gameStarted: false;
+
     /////////////////
 
 
@@ -327,6 +329,7 @@ Rectangle {
         GameGrid {
             id: gameAreaId
 
+            gameStarted: false
             isOpponent: false
 
             gridHeight: gameBoardId.shipHeight * 10
@@ -341,6 +344,7 @@ Rectangle {
     }
 
     Text {
+        id: gameStatusTextId
         anchors.top: gameRectId.bottom
         anchors.left: spacerOneId.right
         anchors.topMargin: 30
@@ -369,6 +373,7 @@ Rectangle {
         GameGrid {
             id: shootAreaId
 
+            gameStarted: false
             isOpponent: true
 
             gridHeight: gameBoardId.shipHeight * 10
@@ -434,9 +439,15 @@ Rectangle {
                 text: "Connect"
                 width: connectRectId.width
                 onClicked: {
-                    console.log("This is to Connection manager!")
-                    //gameBoardId.qmlSignal("Hou")
+                    console.log("This is to Connection manager!");
+
                     startedAsServer? gameBoardId.startServerSignal(porttext.text) : gameBoardId.startClientSignal (ipaddresstext.text, porttext.text);
+
+                    // Give user information about game status.
+                    gameStatusTextId.text = qsTr("Connecting...");
+
+                    // inform all components that game has started
+                    gameBoardId.gameStarted = true;
                 }
             }
 

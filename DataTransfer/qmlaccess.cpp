@@ -44,7 +44,7 @@ void QMLAccess::shipMovement(int shipId)
     getShipProperties(shipId, x_coord, y_coord, x_length, y_length);
 
 
-    qDebug() << "[Engine] Moving Ship #" << shipId << " coordX: " << x_coord << ", coordY: " << y_coord
+    qDebug() << "[Engine|QMLAccess] Moving Ship #" << shipId << " coordX: " << x_coord << ", coordY: " << y_coord
              << ", lengthX: " << x_length << ", lengthY: " << y_length;
 
     // get ship from fleet and set new coordinates and dimentions
@@ -82,9 +82,9 @@ void QMLAccess::addShipToFleet(int shipId)
     int x_coord, y_coord, x_length, y_length = 0;
     getShipProperties(shipId, x_coord, y_coord, x_length, y_length);
 
-    //qDebug() << "[Engine] Adding Ship #" << shipId << " to Fleet!";
+    //qDebug() << "[Engine|QMLAccess] Adding Ship #" << shipId << " to Fleet!";
 
-    qDebug() << "[Engine] Adding Ship #" << shipId << " coordX: " << x_coord << ", coordY: " << y_coord
+    qDebug() << "[Engine|QMLAccess] Adding Ship #" << shipId << " coordX: " << x_coord << ", coordY: " << y_coord
              << ", lengthX: " << x_length << ", lengthY: " << y_length;
 
     if (pFleet->addShip(new Ship(shipId, x_coord, y_coord, x_length, y_length)))
@@ -106,7 +106,7 @@ void QMLAccess::getShipProperties(int &shipid, int &x_coord, int &y_coord, int &
     QObject *pQShip = getShipQObj(shipid);
     if (!pQShip)
     {
-        qDebug() << "No Ship #" << shipid << " found!!!";
+        qDebug() << "[Engine|QMLAccess] No Ship #" << shipid << " found!!!";
         return;
     }
 
@@ -161,7 +161,7 @@ void QMLAccess::updateFleetStatus()
     // No remove ships from fleet
     for (unsigned int i = 0; i < countOfRemovable; i++)
     {
-        qDebug() << "Removing ship #" << removeArray[i];
+        qDebug() << "[Engine|QMLAccess] Removing ship #" << removeArray[i];
         pFleet->removeShip(removeArray[i]);
     }
 }
