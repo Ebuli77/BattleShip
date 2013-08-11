@@ -138,7 +138,7 @@ void QMLAccess::updateFleetStatus()
     qDebug() << "Fleet size for removing is " << pFleet->count();
     for (unsigned int i = 0; i < pFleet->count(); i++)
     {
-        shipid = pFleet->getShip(i)->getId();
+        shipid = pFleet->getShipAt(i)->getId();
         pQShip = getShipQObj(shipid);
         if (pQShip)
         {

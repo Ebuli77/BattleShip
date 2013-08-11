@@ -259,16 +259,12 @@ bool Fleet::removeShip(int shipid)
 }
 
 /**
- * Returns ship at given index
+ * Returns ship with given ship id
  *
  * @return Ship pointer to given vector index when true, else 0
  */
 Ship *Fleet::getShip(unsigned int shipid)
 {
-    /*
-	if (idx > _p_fleet->size()) return 0;
-    return _p_fleet->at(idx);*/
-
     for (unsigned int i = 0; i < _p_fleet->size(); i++)
     {
         if (_p_fleet->at(i)->getId() == shipid)
@@ -277,6 +273,12 @@ Ship *Fleet::getShip(unsigned int shipid)
         }
     }
     return 0;
+}
+
+Ship *Fleet::getShipAt(unsigned int index)
+{
+    if (index >= _p_fleet->size()) return 0;
+    return _p_fleet->at(index);
 }
 
 int Fleet::count()

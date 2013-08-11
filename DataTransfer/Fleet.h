@@ -52,7 +52,9 @@ public:
 	Ship::hitstatus shootCoords(int x, int y, bool into_status = true, Ship *p_ship = 0);		//< fleet gets shooted at coordinates x, y
 	//Ship::hitstatus shootCoords(int x, int y, bool into_status = true);		//< fleet gets shooted at coordinates x, y
 
-	Ship *getShip(unsigned int idx);
+    Ship *getShip(unsigned int shipid);
+
+    Ship *getShipAt(unsigned int index);
 
 	Ship::hitstatus getFleetStatus();
 	int count();
