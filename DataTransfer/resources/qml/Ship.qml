@@ -191,35 +191,6 @@ Item {
         angle: shipAngle
     }
 
-    /*
-    states: [
-        State {
-            name: "UNPLACE"
-            PropertyChanges { target: currentShipId; x: startX; y: startY}
-        },
-        State {
-            name: "PLACE"
-            PropertyChanges { target: currentShipId; shipAngle: horizontalPlacement?0:90}
-        }
-    ]
-
-
-    transitions: [
-        Transition {
-            from: "*"
-            to: "PLACE"
-            NumberAnimation { properties: "shipAngle"; easing.type: Easing.OutExpo; duration: 2500 }
-        },
-        Transition {
-            from: "*"
-            to: "UNPLACE"
-            NumberAnimation { properties: "shipAngle"; easing.type: Easing.OutExpo; duration: 2500 }
-            NumberAnimation { properties: "x"; easing.type: Easing.OutExpo; duration: 2500 }
-            NumberAnimation { properties: "y"; easing.type: Easing.OutExpo; duration: 2500 }
-        }
-    ]
-    */
-
     //onShipPlacedCorrectlyChanged: console.log("shipPlacedCorrectly is now: " + shipPlacedCorrectly);
     onShipAddedToFleetChanged: console.log("shipAddedToFleetChanged is now: " + shipAddedToFleet);
 
@@ -229,6 +200,7 @@ Item {
         startX = currentShipId.x;
         startY = currentShipId.y;
     }
+
 
 
 
