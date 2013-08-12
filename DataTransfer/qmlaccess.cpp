@@ -98,6 +98,10 @@ void QMLAccess::addShipToFleet(int shipId)
 
 }
 
+void QMLAccess::shootFleetCoords(int x_coord, int y_coord)
+{
+    qDebug() << "[Engine|QMLAccess] shooting coords x:" << x_coord <<", y:" << y_coord;
+}
 
 void QMLAccess::getShipProperties(int &shipid, int &x_coord, int &y_coord, int &x_length, int &y_length)
 {
@@ -126,8 +130,7 @@ QObject *QMLAccess::getShipQObj(int shipid)
 /**
  * @brief QMLAccess::updateFleetStatus
  *
- * Syncronizes back end with QML. If ship is not fitted to Fleet then this function
- * moves that ship off the fleet are back to starting position.
+ * Syncronizes backend with QML.
  */
 void QMLAccess::updateFleetStatus()
 {
