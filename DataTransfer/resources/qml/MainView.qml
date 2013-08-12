@@ -450,7 +450,7 @@ Rectangle {
                     startedAsServer? gameBoardId.startServerSignal(porttext.text) : gameBoardId.startClientSignal (ipaddresstext.text, porttext.text);
 
                     // Give user information about game status.
-                    gameStatusTextId.text = qsTr("Connecting...");
+                    startedAsServer? gameStatusTextId.text = qsTr("Ready for connections!"): gameStatusTextId.text = qsTr("Connecting...");
 
                     // inform all components that game has started
                     gameBoardId.gameStarted = true;
